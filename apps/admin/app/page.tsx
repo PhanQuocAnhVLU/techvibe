@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Package, ShoppingCart, Users, DollarSign, TrendingUp, TrendingDown, Bell, Eye, Plus, ChevronRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 
 const stats = [
   { label: 'Doanh thu hôm nay', value: '325.5M', change: '+12.5%', up: true, icon: DollarSign },
@@ -13,11 +12,11 @@ const stats = [
 ]
 
 const recentOrders = [
-  { id: 'ORD20260817001', customer: 'Nguyễn Văn A', total: '32.990.000đ', status: 'pending', time: '5 phút trước' },
-  { id: 'ORD20260817002', customer: 'Trần Thị B', total: '15.990.000đ', status: 'confirmed', time: '12 phút trước' },
-  { id: 'ORD20260817003', customer: 'Lê Văn C', total: '89.990.000đ', status: 'processing', time: '25 phút trước' },
-  { id: 'ORD20260817004', customer: 'Phạm Thị D', total: '28.990.000đ', status: 'shipping', time: '1 giờ trước' },
-  { id: 'ORD20260817005', customer: 'Hoàng Văn E', total: '42.990.000đ', status: 'completed', time: '2 giờ trước' },
+  { id: 1, code: 'ORD20260817001', customer: 'Nguyễn Văn A', total: '32.990.000đ', status: 'pending' },
+  { id: 2, code: 'ORD20260817002', customer: 'Trần Thị B', total: '15.990.000đ', status: 'confirmed' },
+  { id: 3, code: 'ORD20260817003', customer: 'Lê Văn C', total: '89.990.000đ', status: 'processing' },
+  { id: 4, code: 'ORD20260817004', customer: 'Phạm Thị D', total: '28.990.000đ', status: 'shipping' },
+  { id: 5, code: 'ORD20260817005', customer: 'Hoàng Văn E', total: '42.990.000đ', status: 'completed' },
 ]
 
 const topProducts = [
@@ -28,22 +27,12 @@ const topProducts = [
   { id: 5, name: 'iPad Air M2', sold: 89, revenue: '2.1B' },
 ]
 
-const statusColors: Record<string, string> = {
-  pending: 'bg-yellow-100 text-yellow-800',
-  confirmed: 'bg-blue-100 text-blue-800',
-  processing: 'bg-purple-100 text-purple-800',
-  shipping: 'bg-indigo-100 text-indigo-800',
-  completed: 'bg-green-100 text-green-800',
-  cancelled: 'bg-red-100 text-red-800',
-}
-
-const statusLabels: Record<string, string> = {
-  pending: 'Chờ xác nhận',
-  confirmed: 'Đã xác nhận',
-  processing: 'Đang xử lý',
-  shipping: 'Đang giao',
-  completed: 'Hoàn thành',
-  cancelled: 'Đã hủy',
+const statusConfig: Record<string, { label: string; color: string; bg: string }> = {
+  pending: { label: 'Chờ xác nhận', color: 'text-yellow-700', bg: 'bg-yellow-100' },
+  confirmed: { label: 'Đã xác nhận', color: 'text-blue-700', bg: 'bg-blue-100' },
+  processing: { label: 'Đang xử lý', color: 'text-purple-700', bg: 'bg-purple-100' },
+  shipping: { label: 'Đang giao', color: 'text-indigo-700', bg: 'bg-indigo-100' },
+  completed: { label: 'Hoàn thành', color: 'text-green-700', bg: 'bg-green-100' },
 }
 
 export default function AdminDashboard() {
@@ -52,17 +41,17 @@ export default function AdminDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-[#363636]">Dashboard</h1>
           <p className="text-gray-500">Chào mừng đến TechStore Admin</p>
         </div>
         <div className="flex items-center gap-3">
           <Link href="/san-pham/them">
-            <Button size="sm" className="gap-2">
+            <button className="bg-[#ca3838] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-[#b32f2f] flex items-center gap-2">
               <Plus className="w-4 h-4" />
-              Thêm sản phẩm
-            </Button>
+              Thêm sản ph�m
+            </button>
           </Link>
-          <button className="relative p-2 bg-white rounded-lg shadow hover:bg-gray-50">
+          <button className="relative p-2 bg-white border border-gray-200 rounded-md hover:bg-gray-50">
             <Bell className="w-5 h-5 text-gray-600" />
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
           </button>
@@ -72,17 +61,17 @@ export default function AdminDashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {stats.map((stat, index) => (
-          <div key={index} className="bg-white rounded-lg p-6 shadow-sm">
+          <div key={index} className="bg-white rounded-lg p-6 border border-gray-200">
             <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-primary/10 rounded-lg">
-                <stat.icon className="w-6 h-6 text-primary" />
+              <div className="p-3 bg-[#fef6f6] rounded-lg">
+                <stat.icon className="w-6 h-6 text-[#ca3838]" />
               </div>
               <span className={`flex items-center text-sm font-medium ${stat.up ? 'text-green-600' : 'text-red-600'}`}>
                 {stat.up ? <TrendingUp className="w-4 h-4 mr-1" /> : <TrendingDown className="w-4 h-4 mr-1" />}
                 {stat.change}
               </span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</h3>
+            <h3 className="text-2xl font-bold text-[#363636] mb-1">{stat.value}</h3>
             <p className="text-gray-500 text-sm">{stat.label}</p>
           </div>
         ))}
@@ -90,75 +79,69 @@ export default function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Orders */}
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-6 border-b border-gray-100">
+        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <div className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold">Đơn hàng gần đây</h2>
-              <Link href="/don-hang" className="text-sm text-primary hover:underline">Xem tất cả</Link>
+              <h2 className="text-lg font-bold text-[#363636]">�ơn hàng gần đây</h2>
+              <Link href="/don-hang" className="text-sm text-[#ca3838] hover:underline">Xem tất cả</Link>
             </div>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Mã đơn</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Khách hàng</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Tổng tiền</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Trạng thái</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase"></th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Mã đơn</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Khách</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Tổng</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Trạng thái</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {recentOrders.map((order, index) => (
-                  <tr key={index} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 text-sm font-medium text-primary">{order.id}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900">{order.customer}</td>
-                    <td className="px-6 py-4 text-sm font-medium">{order.total}</td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${statusColors[order.status]}`}>
-                        {statusLabels[order.status]}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <Link href={`/don-hang/${order.id}`}>
-                        <button className="p-1 hover:bg-gray-100 rounded">
-                          <Eye className="w-4 h-4 text-gray-500" />
-                        </button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+                {recentOrders.map((order) => {
+                  const status = statusConfig[order.status]
+                  return (
+                    <tr key={order.id} className="hover:bg-gray-50">
+                      <td className="px-4 py-3 text-sm font-semibold text-[#ca3838]">#{order.code}</td>
+                      <td className="px-4 py-3 text-sm text-[#363636]">{order.customer}</td>
+                      <td className="px-4 py-3 text-sm font-medium">{order.total}</td>
+                      <td className="px-4 py-3">
+                        <span className={`inline-flex px-2 py-0.5 text-xs font-semibold rounded-full ${status.bg} ${status.color}`}>
+                          {status.label}
+                        </span>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           </div>
         </div>
 
         {/* Top Products */}
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-6 border-b border-gray-100">
+        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <div className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold">Sản phẩm bán chạy</h2>
-              <Link href="/san-pham" className="text-sm text-primary hover:underline">Xem tất cả</Link>
+              <h2 className="text-lg font-bold text-[#363636]">Sản phẩm bán chạy</h2>
+              <Link href="/san-pham" className="text-sm text-[#ca3838] hover:underline">Xem tất cả</Link>
             </div>
           </div>
-          <div className="p-6">
+          <div className="p-4">
             <div className="space-y-4">
               {topProducts.map((product, index) => (
                 <Link 
                   key={product.id} 
                   href={`/san-pham/${product.id}`}
-                  className="flex items-center gap-4 hover:bg-gray-50 -mx-4 px-4 py-2 rounded-lg transition-colors"
+                  className="flex items-center gap-4 hover:bg-gray-50 -mx-2 px-2 py-2 rounded-lg transition-colors"
                 >
-                  <span className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-sm font-bold text-primary">
+                  <span className="w-8 h-8 bg-[#fef6f6] text-[#ca3838] rounded-full flex items-center justify-center text-sm font-bold">
                     {index + 1}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900 truncate">{product.name}</p>
+                    <p className="font-medium text-[#363636] truncate">{product.name}</p>
                     <p className="text-sm text-gray-500">{product.sold} đã bán</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-primary">{product.revenue}đ</p>
-                    <p className="text-xs text-gray-500">doanh thu</p>
+                    <p className="font-bold text-[#ca3838]">{product.revenue}đ</p>
                   </div>
                   <ChevronRight className="w-4 h-4 text-gray-400" />
                 </Link>

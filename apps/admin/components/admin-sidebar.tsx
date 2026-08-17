@@ -10,7 +10,15 @@ import {
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 
-const menuItems = [
+type MenuItem = {
+  href: string
+  icon: any
+  label: string
+  badge?: string
+  children?: { href: string; label: string; badge?: string }[]
+}
+
+const menuItems: MenuItem[] = [
   { 
     href: '/', 
     icon: LayoutDashboard, 
@@ -31,9 +39,10 @@ const menuItems = [
     href: '/don-hang', 
     icon: ShoppingCart, 
     label: 'Đơn hàng',
+    badge: '12',
     children: [
       { href: '/don-hang', label: 'Tất cả đơn hàng' },
-      { href: '/don-hang/cho-xac-nhan', label: 'Chờ xác nhận' },
+      { href: '/don-hang/cho-xac-nhan', label: 'Chờ xác nhận', badge: '5' },
       { href: '/don-hang/dang-xu-ly', label: 'Đang xử lý' },
       { href: '/don-hang/da-hoan-thanh', label: 'Đã hoàn thành' },
     ]
@@ -97,7 +106,7 @@ export function AdminSidebar() {
 
   return (
     <aside className={cn(
-      'bg-sidebar text-white h-screen fixed left-0 top-0 flex flex-col transition-all duration-300 z-40',
+      'bg-[#363636] text-white h-screen fixed left-0 top-0 flex flex-col transition-all duration-300 z-40',
       isCollapsed ? 'w-16' : 'w-64'
     )}>
       {/* Logo */}
@@ -105,19 +114,19 @@ export function AdminSidebar() {
         <div className="flex items-center justify-between">
           {!isCollapsed && (
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <div className="w-9 h-9 bg-[#ca3838] rounded-lg flex items-center justify-center">
                 <span className="font-bold text-lg">T</span>
               </div>
               <div>
-                <span className="font-bold">Tech</span>
-                <span className="font-bold text-primary">Store</span>
+                <span className="font-bold text-base">Tech</span>
+                <span className="font-bold text-base text-[#ca3838]">Store</span>
                 <p className="text-[10px] text-gray-400">Admin Panel</p>
               </div>
             </Link>
           )}
           <button 
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 hover:bg-white/10 rounded transition-colors"
+            className="p-1.5 hover:bg-white/10 rounded transition-colors"
           >
             {isCollapsed ? <Menu className="w-5 h-5" /> : <X className="w-5 h-5" />}
           </button>
@@ -134,15 +143,20 @@ export function AdminSidebar() {
                   <button
                     onClick={() => toggleMenu(item.href)}
                     className={cn(
-                      'flex items-center gap-3 w-full px-3 py-2.5 rounded-md transition-colors',
+                      'flex items-center gap-3 w-full px-3 py-2.5 rounded-md transition-colors text-sm',
                       'hover:bg-white/10',
-                      isActive(item.href) && 'bg-primary'
+                      isActive(item.href) && 'bg-[#ca3838] text-white'
                     )}
                   >
                     <item.icon className="w-5 h-5 shrink-0" />
                     {!isCollapsed && (
                       <>
                         <span className="flex-1 text-left font-medium">{item.label}</span>
+                        {('badge' in item && item.badge) && (
+                          <span className="bg-[#ca3838] text-white text-[10px] px-1.5 py-0.5 rounded-full">
+                            {item.badge}
+                          </span>
+                        )}
                         <ChevronDown className={cn(
                           'w-4 h-4 transition-transform',
                           expandedMenus.includes(item.href) && 'rotate-180'
@@ -157,14 +171,21 @@ export function AdminSidebar() {
                           <Link
                             href={child.href}
                             className={cn(
-                              'flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors',
+                              'flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm transition-colors',
                               pathname === child.href
-                                ? 'bg-white/10 text-primary'
-                                : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                                ? 'bg-white/10 text-white font-medium'
+                                : 'text-gray-400 hover:bg-white/5 hover:text-white'
                             )}
                           >
-                            <ChevronRight className="w-3 h-3" />
-                            {child.label}
+                            <span className="flex items-center gap-2">
+                              <ChevronRight className="w-3 h-3" />
+                              {child.label}
+                            </span>
+                            {('badge' in child && child.badge) && (
+                              <span className="bg-[#ca3838] text-white text-[10px] px-1.5 py-0.5 rounded-full">
+                                {child.badge}
+                              </span>
+                            )}
                           </Link>
                         </li>
                       ))}
@@ -175,14 +196,21 @@ export function AdminSidebar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    'flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors',
+                    'flex items-center justify-between gap-3 px-3 py-2.5 rounded-md transition-colors text-sm',
                     isActive(item.href) 
-                      ? 'bg-primary text-white' 
+                      ? 'bg-[#ca3838] text-white' 
                       : 'text-gray-300 hover:bg-white/10 hover:text-white'
                   )}
                 >
-                  <item.icon className="w-5 h-5 shrink-0" />
-                  {!isCollapsed && <span className="font-medium">{item.label}</span>}
+                  <div className="flex items-center gap-3">
+                    <item.icon className="w-5 h-5 shrink-0" />
+                    {!isCollapsed && <span className="font-medium">{item.label}</span>}
+                  </div>
+                  {!isCollapsed && ('badge' in item && item.badge) && (
+                    <span className="bg-[#ca3838] text-white text-[10px] px-1.5 py-0.5 rounded-full">
+                      {item.badge}
+                    </span>
+                  )}
                 </Link>
               )}
             </li>
@@ -193,7 +221,7 @@ export function AdminSidebar() {
       {/* Bottom */}
       <div className="p-4 border-t border-white/10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 bg-[#ca3838] rounded-full flex items-center justify-center shrink-0">
             <span className="font-semibold">A</span>
           </div>
           {!isCollapsed && (
