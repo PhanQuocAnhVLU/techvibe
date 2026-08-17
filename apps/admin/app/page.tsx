@@ -1,7 +1,10 @@
 'use client'
 
-import { Package, ShoppingCart, Users, DollarSign, TrendingUp, TrendingDown, Eye } from 'lucide-react'
+import { useState } from 'react'
+import Link from 'next/link'
+import { Package, ShoppingCart, Users, DollarSign, TrendingUp, TrendingDown, Bell, Eye, Plus } from 'lucide-react'
 import { AdminSidebar } from '@/components/admin-sidebar'
+import { Button } from '@/components/ui/button'
 
 const stats = [
   { label: 'Doanh thu hôm nay', value: '325.5M', change: '+12.5%', up: true, icon: DollarSign },
@@ -57,8 +60,15 @@ export default function AdminDashboard() {
             <p className="text-gray-500">Chào mừng đến TechStore Admin</p>
           </div>
           <div className="flex items-center gap-3">
-            <button className="p-2 bg-white rounded-lg shadow hover:bg-gray-50">
+            <Link href="/san-pham/them">
+              <Button size="sm" className="gap-2">
+                <Plus className="w-4 h-4" />
+                Thêm sản phẩm
+              </Button>
+            </Link>
+            <button className="relative p-2 bg-white rounded-lg shadow hover:bg-gray-50">
               <Bell className="w-5 h-5 text-gray-600" />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
           </div>
         </div>
@@ -88,7 +98,7 @@ export default function AdminDashboard() {
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-bold">Đơn hàng gần đây</h2>
-                <a href="/don-hang" className="text-sm text-primary hover:underline">Xem tất cả</a>
+                <Link href="/don-hang" className="text-sm text-primary hover:underline">Xem tất cả</Link>
               </div>
             </div>
             <div className="overflow-x-auto">
@@ -99,6 +109,7 @@ export default function AdminDashboard() {
                     <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Khách hàng</th>
                     <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Tổng tiền</th>
                     <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase">Trạng thái</th>
+                    <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase"></th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -112,6 +123,11 @@ export default function AdminDashboard() {
                           {statusLabels[order.status]}
                         </span>
                       </td>
+                      <td className="px-6 py-4">
+                        <button className="p-1 hover:bg-gray-100 rounded">
+                          <Eye className="w-4 h-4 text-gray-500" />
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -124,14 +140,14 @@ export default function AdminDashboard() {
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-bold">Sản phẩm bán chạy</h2>
-                <a href="/san-pham" className="text-sm text-primary hover:underline">Xem tất cả</a>
+                <Link href="/san-pham" className="text-sm text-primary hover:underline">Xem tất cả</Link>
               </div>
             </div>
             <div className="p-6">
               <div className="space-y-4">
                 {topProducts.map((product, index) => (
                   <div key={index} className="flex items-center gap-4">
-                    <span className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-sm font-bold text-gray-600">
+                    <span className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-sm font-bold text-primary">
                       {index + 1}
                     </span>
                     <div className="flex-1 min-w-0">
