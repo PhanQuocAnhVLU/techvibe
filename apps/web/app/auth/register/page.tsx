@@ -119,8 +119,8 @@ export default function RegisterPage() {
               {formData.password && (
                 <div className="mt-2 space-y-1">
                   <PasswordRequirement met={formData.password.length >= 8} text="Ít nhất 8 ký tự" />
-                  <PasswordRequirement met=/[A-Z]/.test(formData.password)} text="Ít nhất 1 chữ hoa" />
-                  <PasswordRequirement met=/[0-9]/.test(formData.password)} text="Ít nhất 1 số" />
+                  <PasswordRequirement met={/[A-Z]/.test(formData.password)} text="Ít nhất 1 chữ hoa" />
+                  <PasswordRequirement met={/[0-9]/.test(formData.password)} text="Ít nhất 1 số" />
                 </div>
               )}
             </div>
