@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/web/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "projects": [
+    {
+      "name": "techstore-web",
+      "src": "apps/web/**/*"
+    },
+    {
+      "name": "techstore-admin",
+      "src": "apps/admin/**/*"
+    }
+  ]
+}

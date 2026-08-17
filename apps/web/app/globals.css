@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #CA1F28;
+  --color-primary-hover: #A31820;
+  --color-secondary: #1A1A1A;
+  --color-accent: #FFD600;
+  --color-background: #F5F5F5;
+  --color-surface: #FFFFFF;
+  --color-text: #1A1A1A;
+  --color-text-secondary: #666666;
+  --color-border: #E0E0E0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white font-semibold px-4 py-2 rounded-sm 
+           hover:bg-primary-hover transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-white border border-primary text-primary font-semibold px-4 py-2 
+           rounded-sm hover:bg-primary hover:text-white transition-colors duration-200;
+  }
+  
+  .btn-ghost {
+    @apply text-primary font-semibold px-4 py-2 hover:bg-primary/10 
+           rounded-sm transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-md shadow-card p-4;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-sm;
+  }
+
+  .badge-discount {
+    @apply bg-primary text-white;
+  }
+
+  .badge-new {
+    @apply bg-primary text-white;
+  }
+
+  .badge-flash {
+    @apply bg-accent text-secondary;
+  }
+
+  .badge-bestseller {
+    @apply bg-orange-500 text-white;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 border border-border rounded-sm 
+           focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20
+           transition-colors duration-200;
+  }
+
+  .price-current {
+    @apply text-primary font-bold text-lg;
+  }
+
+  .price-original {
+    @apply text-text-secondary line-through text-sm;
+  }
+
+  .price-discount {
+    @apply text-primary text-xs font-semibold;
+  }
+}
+
+/* Product Card Hover Effect */
+.product-card {
+  @apply transition-all duration-200;
+}
+.product-card:hover {
+  @apply shadow-card-hover -translate-y-0.5;
+}
+
+/* Flash Sale Progress Bar */
+.progress-bar {
+  @apply h-2 bg-gray-200 rounded-full overflow-hidden;
+}
+.progress-bar-fill {
+  @apply h-full bg-primary rounded-full transition-all duration-300;
+}
+
+/* Header Sticky */
+.header-sticky {
+  @apply sticky top-0 z-50 bg-white shadow-card;
+}
+
+/* Category Icons */
+.category-icon {
+  @apply w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center
+         text-primary mb-2;
+}
+
+/* Rating Stars */
+.stars {
+  @apply flex text-accent;
+}
+.stars-empty {
+  @apply text-gray-300;
+}
+
+/* Scrollbar Custom */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Animations */
+@keyframes pulse-sale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.animate-pulse-sale {
+  animation: pulse-sale 1s ease-in-out infinite;
+}
+
+@keyframes slide-infinite {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-slide {
+  animation: slide-infinite 20s linear infinite;
+}
