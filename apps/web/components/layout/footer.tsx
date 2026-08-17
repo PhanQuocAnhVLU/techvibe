@@ -1,112 +1,114 @@
+'use client'
+
 import Link from 'next/link'
-import { MapPin, Phone, Mail, Facebook, Youtube, Instagram } from 'lucide-react'
+import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 
 export function Footer() {
   return (
-    <footer className="bg-secondary text-white mt-auto">
-      {/* Main Footer */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* About */}
-          <div>
+    <footer className="bg-[#363636] text-white">
+      <div className="max-w-7xl mx-auto px-4 py-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {/* Column 1 - About */}
+          <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">T</span>
+              <div className="w-10 h-10 bg-[#ca3838] rounded-lg flex items-center justify-center">
+                <span className="font-bold text-white text-xl">T</span>
               </div>
               <div>
-                <span className="font-bold text-xl text-white">Tech</span>
-                <span className="font-bold text-xl text-primary">Store</span>
+                <span className="font-bold text-lg">Tech</span>
+                <span className="font-bold text-lg text-[#ca3838]">Store</span>
               </div>
             </div>
-            <p className="text-gray-400 text-sm mb-4">
-              Hệ thống bán lẻ điện tử hàng đầu Việt Nam. Cam kết 100% sản phẩm chính hãng, 
-              giá tốt nhất thị trường và dịch vụ khách hàng xuất sắc.
+            <p className="text-sm text-gray-400 mb-4">
+              Cửa hàng công nghệ hàng đầu Việt Nam với hơn 10 năm kinh nghiệm. Cam kết chất lượng sản phẩm và dịch vụ tốt nhất.
             </p>
-            <div className="flex gap-3">
-              <a href="#" className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                <Youtube className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                <Instagram className="w-4 h-4" />
-              </a>
+            <div className="flex items-center gap-2 text-sm text-gray-400 mb-2">
+              <Phone className="w-4 h-4" />
+              <span>Hotline: <strong className="text-white">1800.2000</strong></span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              <Clock className="w-4 h-4" />
+              <span>Tổng đài: 8h - 22h (Thứ 2 - CN)</span>
             </div>
           </div>
 
-          {/* About Links */}
+          {/* Column 2 - Thông tin */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Về TechStore</h3>
-            <ul className="space-y-2">
-              <li><Link href="/gioi-thieu" className="text-gray-400 hover:text-primary text-sm transition-colors">Giới thiệu</Link></li>
-              <li><Link href="/tuyen-dung" className="text-gray-400 hover:text-primary text-sm transition-colors">Tuyển dụng</Link></li>
-              <li><Link href="/lien-he" className="text-gray-400 hover:text-primary text-sm transition-colors">Liên hệ</Link></li>
-              <li><Link href="/he-thong-cua-hang" className="text-gray-400 hover:text-primary text-sm transition-colors">Hệ thống cửa hàng</Link></li>
+            <h3 className="font-semibold mb-4 text-white">Thông tin</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><Link href="/gioi-thieu" className="hover:text-white transition-colors">Giới thiệu</Link></li>
+              <li><Link href="/tin-tuc" className="hover:text-white transition-colors">Tin tức</Link></li>
+              <li><Link href="/tuyen-dung" className="hover:text-white transition-colors">Tuyển dụng</Link></li>
+              <li><Link href="/lien-he" className="hover:text-white transition-colors">Liên hệ</Link></li>
             </ul>
           </div>
 
-          {/* Support Links */}
+          {/* Column 3 - Hỗ trợ */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Hỗ trợ khách hàng</h3>
-            <ul className="space-y-2">
-              <li><Link href="/chinh-sach/giao-hang" className="text-gray-400 hover:text-primary text-sm transition-colors">Chính sách giao hàng</Link></li>
-              <li><Link href="/chinh-sach/doi-tra" className="text-gray-400 hover:text-primary text-sm transition-colors">Chính sách đổi trả</Link></li>
-              <li><Link href="/chinh-sach/bao-hanh" className="text-gray-400 hover:text-primary text-sm transition-colors">Chính sách bảo hành</Link></li>
-              <li><Link href="/huong-dan/mua-hang" className="text-gray-400 hover:text-primary text-sm transition-colors">Hướng dẫn mua hàng</Link></li>
-              <li><Link href="/huong-dan/tra-gop" className="text-gray-400 hover:text-primary text-sm transition-colors">Hướng dẫn trả góp</Link></li>
+            <h3 className="font-semibold mb-4 text-white">Hỗ trợ khách hàng</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><Link href="/huong-dan-mua-hang" className="hover:text-white transition-colors">Hướng dẫn mua hàng</Link></li>
+              <li><Link href="/chinh-sach-doi-tra" className="hover:text-white transition-colors">Chính sách đổi trả</Link></li>
+              <li><Link href="/chinh-sach-bao-hanh" className="hover:text-white transition-colors">Chính sách bảo hành</Link></li>
+              <li><Link href="/chinh-sach-van-chuyen" className="hover:text-white transition-colors">Chính sách vận chuyển</Link></li>
+              <li><Link href="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Column 4 - Liên hệ */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Liên hệ</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                <span className="text-gray-400 text-sm">123 Trần Hưng Đạo, Quận 1, TP. Hồ Chí Minh</span>
+            <h3 className="font-semibold mb-4 text-white">Liên hệ</h3>
+            <ul className="space-y-3 text-sm text-gray-400">
+              <li className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
+                <span>123 Nguyễn Trãi, P.Bến Thành,<br />Q.1, TP. Hồ Chí Minh</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-primary shrink-0" />
-                <a href="tel:18002001" className="text-gray-400 text-sm hover:text-primary transition-colors">
-                  Hotline: 1800.2001
-                </a>
+              <li className="flex items-center gap-2">
+                <Phone className="w-4 h-4 shrink-0" />
+                <span>1900.2000</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-primary shrink-0" />
-                <a href="mailto:hotro@techstore.vn" className="text-gray-400 text-sm hover:text-primary transition-colors">
-                  hotro@techstore.vn
-                </a>
+              <li className="flex items-center gap-2">
+                <Mail className="w-4 h-4 shrink-0" />
+                <span>cskh@techstore.vn</span>
               </li>
             </ul>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-3 mt-4">
+              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#ca3838] transition-colors">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#ca3838] transition-colors">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#ca3838] transition-colors">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                </svg>
+              </a>
+              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#ca3838] transition-colors">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Payment Methods */}
-      <div className="border-t border-white/10">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/100px-Visa_Inc._logo.svg.png" alt="Visa" className="h-6 opacity-60" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/100px-Mastercard-logo.svg.png" alt="Mastercard" className="h-6 opacity-60" />
-            <div className="px-3 py-1 bg-white/10 rounded text-xs">MoMo</div>
-            <div className="px-3 py-1 bg-white/10 rounded text-xs">VNPay</div>
-            <div className="px-3 py-1 bg-white/10 rounded text-xs">ZaloPay</div>
-            <div className="px-3 py-1 bg-white/10 rounded text-xs">COD</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Copyright */}
-      <div className="border-t border-white/10 bg-black/20">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-center md:text-left">
-            <p className="text-gray-500 text-xs">
-              © 2026 TechStore. Tất cả quyền được bảo lưu.
-            </p>
-            <p className="text-gray-500 text-xs">
-              Công ty TNHH TechStore Việt Nam | Mã số thuế: 0123456789
-            </p>
+      {/* Bottom Bar */}
+      <div className="border-t border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+            <p>© 2024 TechStore. Tất cả quyền được bảo lưu.</p>
+            <div className="flex items-center gap-4">
+              <Link href="/chinh-sach-bao-mat" className="hover:text-white transition-colors">Chính sách bảo mật</Link>
+              <Link href="/dieu-khoan-su-dung" className="hover:text-white transition-colors">Điều khoản sử dụng</Link>
+            </div>
           </div>
         </div>
       </div>
