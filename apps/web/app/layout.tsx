@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { AppProvider, ToastContainer } from '@/lib/app-context'
+import { SearchModal, CartDrawer, QuickViewModal } from '@/components/modals'
 
 export const metadata: Metadata = {
   title: 'TechStore - Hệ thống bán lẻ điện tử hàng đầu Việt Nam',
@@ -14,7 +16,13 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body className="min-h-screen bg-background">
-        {children}
+        <AppProvider>
+          {children}
+          <SearchModal />
+          <CartDrawer />
+          <QuickViewModal />
+          <ToastContainer />
+        </AppProvider>
       </body>
     </html>
   )
