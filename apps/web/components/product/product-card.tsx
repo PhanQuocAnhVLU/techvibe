@@ -6,9 +6,9 @@ import { Heart, ShoppingCart, FlashlightIcon as Flash } from 'lucide-react'
 import { Product } from '@/lib/types'
 import { formatPrice, calculateDiscount } from '@/lib/utils'
 import { cn } from '@/lib/utils'
-import { Badge } from './badge'
-import { Button } from './button'
-import { RatingStars } from './rating-stars'
+import { Badge } from '../ui/badge'
+import { Button } from '../ui/button'
+import { RatingStars } from '../ui/rating-stars'
 
 interface ProductCardProps {
   product: Product
