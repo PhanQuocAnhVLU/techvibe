@@ -8,7 +8,7 @@ import {
   Heart, ShoppingCart, ArrowRight, Trash2
 } from 'lucide-react'
 import { useApp } from '@/lib/app-context'
-import { SmartImage } from '@/components/smart-image'
+import { ProductMockup } from '@/components/product-mockup'
 
 const trendingSearches = ['iPhone 15', 'Samsung Galaxy S24', 'MacBook Air M3', 'AirPods Pro 2', 'Xiaomi 14']
 const suggestions = [
@@ -102,7 +102,7 @@ export function SearchModal() {
                       onClick={() => setIsSearchOpen(false)}
                       className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg"
                     >
-                      <SmartImage name={item.name} brand={item.brand} className="w-12 h-12 rounded" />
+                      <ProductMockup name={item.name} brand={item.brand} className="w-12 h-12 rounded" />
                       <div className="flex-1">
                         <p className="text-sm font-medium">{item.name}</p>
                         <p className="text-xs text-gray-500">{item.brand}</p>
@@ -239,7 +239,7 @@ export function CartDrawer() {
             <div className="space-y-4">
               {cartItems.map(item => (
                 <div key={item.id} className="flex gap-3 pb-4 border-b">
-                  <SmartImage name={item.name} brand={detectBrand(item.name)} className="w-16 h-16 rounded" />
+                  <ProductMockup name={item.name} brand={detectBrand(item.name)} className="w-16 h-16 rounded" />
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm line-clamp-2">{item.name}</p>
                     <p className="text-sm text-[#ca3838] font-semibold mt-1">
@@ -333,7 +333,7 @@ export function QuickViewModal() {
         </button>
 
         <div className="md:w-1/2 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8">
-          <SmartImage name={product.name} brand={product.brand} className="max-w-full max-h-[400px] object-contain" />
+          <ProductMockup name={product.name} brand={product.brand} className="max-w-full max-h-[400px]" />
         </div>
 
         <div className="md:w-1/2 p-6 overflow-y-auto">

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronRight, X, GitCompare, ArrowLeft, ShoppingCart, Heart, Star } from 'lucide-react'
-import { SmartImage } from '@/components/smart-image'
+import { ProductMockup } from '@/components/product-mockup'
 
 interface Product {
   id: number
@@ -119,7 +119,7 @@ export default function ComparePage() {
                       <X className="w-4 h-4 text-gray-400" />
                     </button>
                     <Link href={`/san-pham/${product.id}`}>
-                      <SmartImage name={product.name} brand={product.brand} className="w-full aspect-square rounded mb-3 bg-gradient-to-br from-gray-50 to-gray-100" />
+                      <ProductMockup name={product.name} brand={product.brand} className="w-full aspect-square rounded mb-3 bg-gradient-to-br from-gray-50 to-gray-100" />
                       <p className="text-xs text-gray-500 mb-1">{product.brand}</p>
                       <h3 className="font-medium text-sm text-[#363636] hover:text-[#ca3838] line-clamp-2 min-h-[40px]">{product.name}</h3>
                     </Link>

@@ -6,7 +6,7 @@ import {
   ChevronRight, MapPin, Truck, CreditCard, Smartphone,
   Check, AlertCircle, Plus, Eye, EyeOff, ArrowLeft
 } from 'lucide-react'
-import { SmartImage } from '@/components/smart-image'
+import { ProductMockup } from '@/components/product-mockup'
 
 interface CartItem {
   id: number
@@ -326,7 +326,7 @@ export default function CheckoutPage() {
                 <div className="space-y-4 mb-6 pb-4 border-b border-gray-200">
                   {cartItems.map(item => (
                     <div key={item.id} className="flex gap-3">
-                      <SmartImage
+                      <ProductMockup
                         name={item.name}
                         brand={item.brand}
                         className="w-16 h-16 rounded-lg"

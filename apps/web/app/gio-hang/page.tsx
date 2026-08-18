@@ -6,7 +6,7 @@ import {
   ChevronRight, Minus, Plus, Trash2, Heart, 
   Tag, Truck, ShieldCheck, ArrowLeft, Check
 } from 'lucide-react'
-import { SmartImage } from '@/components/smart-image'
+import { ProductMockup } from '@/components/product-mockup'
 
 interface CartItem {
   id: number
@@ -212,7 +212,7 @@ export default function CartPage() {
 
                     {/* Image */}
                     <Link href={`/san-pham/${item.id}`} className="shrink-0">
-                      <SmartImage
+                      <ProductMockup
                         name={item.name}
                         brand={item.brand}
                         className="w-24 h-24 rounded-lg"

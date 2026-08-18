@@ -9,7 +9,7 @@ import {
   Heart, ShoppingCart
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { SmartImage } from '@/components/smart-image'
+import { ProductMockup } from '@/components/product-mockup'
 
 const brands = ['Apple', 'Samsung', 'Xiaomi', 'OPPO', 'vivo', 'Realme', 'Nokia', 'Tecno']
 const categories = [
@@ -492,7 +492,7 @@ function ProductCard({ product }: { product: any }) {
     >
       {/* Image */}
       <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100">
-        <SmartImage
+        <ProductMockup
           name={product.name}
           brand={product.brand}
           className="w-full h-full"
@@ -574,7 +574,7 @@ function ProductListCard({ product }: { product: any }) {
     >
       {/* Image */}
       <div className="relative w-28 h-28 shrink-0 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden">
-        <SmartImage
+        <ProductMockup
           name={product.name}
           brand={product.brand}
           className="w-full h-full"

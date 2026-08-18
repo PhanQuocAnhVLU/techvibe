@@ -6,7 +6,7 @@ import {
   ChevronRight, Package, Search, Filter, Eye, 
   Truck, Check, Clock, X, Star
 } from 'lucide-react'
-import { SmartImage } from '@/components/smart-image'
+import { ProductMockup } from '@/components/product-mockup'
 
 interface Order {
   id: string
@@ -220,7 +220,7 @@ export default function OrdersPage() {
                         <div className="p-4 space-y-3">
                           {order.items.map((item, idx) => (
                             <div key={idx} className="flex gap-4">
-                              <SmartImage name={item.name} brand={item.brand} className="w-16 h-16 rounded-lg" />
+                              <ProductMockup name={item.name} brand={item.brand} className="w-16 h-16 rounded-lg" />
                               <div className="flex-1">
                                 <p className="font-medium text-[#363636]">{item.name}</p>
                                 <p className="text-sm text-gray-500">Số lượng: {item.quantity}</p>

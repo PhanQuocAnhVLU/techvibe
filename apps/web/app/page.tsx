@@ -9,14 +9,14 @@ import { Search, ShoppingCart, User, Menu, X, ChevronRight,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useApp } from '@/lib/app-context'
-import { SmartImage } from '@/components/smart-image'
+import { HeroMockup, ProductMockup, NewsMockup } from '@/components/product-mockup'
 
 const banners = [
-  { id: 1, title: 'iPhone 15 Pro Max', subtitle: 'Siêu phẩm chính hãng Apple', bg: 'from-gray-900 via-gray-800 to-gray-700', name: 'iPhone 15 Pro Max 256GB' },
-  { id: 2, title: 'Samsung Galaxy S24', subtitle: 'Flagship Android đỉnh cao', bg: 'from-blue-600 to-blue-800', name: 'Samsung Galaxy S24 Ultra' },
-  { id: 3, title: 'MacBook Air M3', subtitle: 'Mỏng nhẹ - Mạnh mẽ', bg: 'from-gray-600 to-gray-800', name: 'MacBook Pro 14 M3' },
-  { id: 4, title: 'Flash Sale 8.8', subtitle: 'Giảm đến 50%', bg: 'from-red-500 to-orange-500', name: 'iPhone 15 Pro Max' },
-  { id: 5, title: 'Xiaomi 14 Pro', subtitle: 'Camera Leica đỉnh cao', bg: 'from-orange-500 to-red-500', name: 'Xiaomi 14 Pro' },
+  { id: 1, title: 'iPhone 15 Pro Max', subtitle: 'Siêu phẩm chính hãng Apple', bg: 'from-gray-900 via-gray-800 to-gray-700', name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', accent: '#5e9eff' },
+  { id: 2, title: 'Samsung Galaxy S24', subtitle: 'Flagship Android đỉnh cao', bg: 'from-blue-600 to-blue-800', name: 'Samsung Galaxy S24 Ultra', brand: 'Samsung', accent: '#fbbf24' },
+  { id: 3, title: 'MacBook Air M3', subtitle: 'Mỏng nhẹ - Mạnh mẽ', bg: 'from-gray-600 to-gray-800', name: 'MacBook Pro 14 M3', brand: 'Apple', accent: '#5e9eff' },
+  { id: 4, title: 'Flash Sale 8.8', subtitle: 'Giảm đến 50%', bg: 'from-red-500 to-orange-500', name: 'iPhone 15 Pro Max', brand: 'Apple', accent: '#fbbf24' },
+  { id: 5, title: 'Xiaomi 14 Pro', subtitle: 'Camera Leica đỉnh cao', bg: 'from-orange-500 to-red-500', name: 'Xiaomi 14 Pro', brand: 'Xiaomi', accent: '#ffffff' },
 ]
 
 const sidebarBanners = [
@@ -76,9 +76,9 @@ const laptopProducts = [
 const brands = ['Apple', 'Samsung', 'Xiaomi', 'OPPO', 'vivo', 'Realme', 'Nokia', 'Tecno', 'ASUS', 'Dell', 'HP', 'Lenovo']
 
 const news = [
-  { id: 1, title: 'iPhone 16 Pro lộ diện với thiết kế hoàn toàn mới', image: 'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-pro-max_3.png', date: '16/08/2024' },
-  { id: 2, title: 'Samsung Galaxy S25 Ultra sẽ có camera 200MP?', image: 'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/a/samsung-galaxy-s24-ultra_2.png', date: '15/08/2024' },
-  { id: 3, title: 'MacBook Air M4 ra mắt cuối năm nay', image: 'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/a/macbook-air-m2_2.png', date: '14/08/2024' },
+  { id: 1, title: 'iPhone 16 Pro lộ diện với thiết kế hoàn toàn mới', image: '', brand: 'Apple', date: '16/08/2024' },
+  { id: 2, title: 'Samsung Galaxy S25 Ultra sẽ có camera 200MP?', image: '', brand: 'Samsung', date: '15/08/2024' },
+  { id: 3, title: 'MacBook Air M4 ra mắt cuối năm nay', image: '', brand: 'Apple', date: '14/08/2024' },
 ]
 
 function formatPrice(price: number) {
@@ -365,7 +365,7 @@ export default function HomePage() {
                     <div className="hidden sm:block w-80 h-56 relative">
                       <div className="absolute inset-0 bg-white/10 rounded-2xl blur-xl animate-pulse" />
                       <div className="relative animate-float h-full">
-                        <SmartImage name={banner.name} brand="" className="w-full h-full drop-shadow-2xl" />
+                        <HeroMockup title={banner.title} subtitle={banner.subtitle} brand={banner.brand || 'Apple'} accent={banner.accent || '#5e9eff'} />
                       </div>
                     </div>
                   </div>
@@ -465,7 +465,7 @@ export default function HomePage() {
                   >
                     <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
                       <div className="zoom-img p-2">
-                        <SmartImage name={product.name} brand={product.brand} className="w-full aspect-square" />
+                        <ProductMockup name={product.name} brand={product.brand} />
                       </div>
                       <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-[#ca3838] text-white text-[10px] font-bold rounded animate-pulse">
                         -{discount}%
@@ -614,7 +614,7 @@ export default function HomePage() {
             {news.map((item) => (
               <Link key={item.id} href={`/tin-tuc/${item.id}`} className="group">
                 <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden mb-2">
-                  <img src={item.image} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                  <NewsMockup title={item.title} brand={item.brand} />
                 </div>
                 <p className="text-xs text-gray-500 mb-1">{item.date}</p>
                 <h3 className="font-medium text-[#363636] group-hover:text-[#ca3838] transition-colors line-clamp-2">{item.title}</h3>
@@ -738,7 +738,7 @@ function ProductSection({ title, subtitle, products, viewAllHref, bgColor = '', 
                 <Link href={`/san-pham/${product.id}`} onClick={() => onProductClick?.(product)}>
                   <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden group">
                     <div className="zoom-img p-2">
-                      <SmartImage name={product.name} brand={product.brand} className="w-full aspect-square" />
+                      <ProductMockup name={product.name} brand={product.brand} />
                     </div>
                     {product.badge && (
                       <span className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-bold rounded shadow ${

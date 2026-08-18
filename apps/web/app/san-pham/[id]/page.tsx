@@ -8,7 +8,7 @@ import {
   ShoppingCart, TruckIcon, Eye, ZoomIn, X, Camera
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { SmartImage } from '@/components/smart-image'
+import { ProductMockup } from '@/components/product-mockup'
 
 // Sample product data
 const product = {
@@ -152,7 +152,7 @@ export default function ProductDetailPage() {
               onClick={() => setLightboxOpen(true)}
             >
               <div className="absolute inset-0 flex items-center justify-center zoom-img">
-                <SmartImage name={product.name} brand={product.brand} className="w-full h-full p-8" />
+                <ProductMockup name={product.name} brand={product.brand} className="p-8" />
               </div>
               {discount > 0 && (
                 <span className="absolute top-4 left-4 px-3 py-1.5 text-sm font-semibold bg-[#ca3838] text-white rounded-lg animate-pulse">
@@ -186,7 +186,7 @@ export default function ProductDetailPage() {
                     selectedImage === idx ? 'border-[#ca3838] shadow-md' : 'border-transparent hover:border-gray-300 bg-gray-50'
                   }`}
                 >
-                  <SmartImage name={product.name} brand={product.brand} className="w-full h-full p-2" />
+                  <ProductMockup name={product.name} brand={product.brand} className="p-2" />
                 </button>
               ))}
             </div>
@@ -436,7 +436,7 @@ export default function ProductDetailPage() {
             {product.accessories.map(item => (
               <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-lg p-4 text-center hover:shadow-xl transition-all hover:-translate-y-1 border border-gray-100 shine">
                 <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mb-3 overflow-hidden zoom-img">
-                  <SmartImage name={item.name} brand={product.brand} className="w-full aspect-square p-2" />
+                  <ProductMockup name={item.name} brand={product.brand} className="p-2" />
                 </div>
                 <p className="font-medium text-sm text-[#363636]">{item.name}</p>
                 <p className="text-[#ca3838] font-semibold mt-1">{formatPrice(item.price)}</p>
@@ -452,7 +452,7 @@ export default function ProductDetailPage() {
             {product.similarProducts.map(item => (
               <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-lg p-3 hover:shadow-xl transition-all hover:-translate-y-1 border border-gray-100 group shine">
                 <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mb-3 overflow-hidden zoom-img">
-                  <SmartImage name={item.name} brand={product.brand} className="w-full aspect-square p-2" />
+                  <ProductMockup name={item.name} brand={product.brand} className="p-2" />
                 </div>
                 <p className="font-medium text-sm text-[#363636] line-clamp-2 group-hover:text-[#ca3838] transition-colors">{item.name}</p>
                 <p className="text-[#ca3838] font-semibold mt-2">{formatPrice(item.price)}</p>
@@ -482,7 +482,7 @@ export default function ProductDetailPage() {
           </button>
           <div className="max-w-3xl w-full" onClick={e => e.stopPropagation()}>
             <div className="bg-white rounded-2xl p-12 flex items-center justify-center">
-              <SmartImage name={product.name} brand={product.brand} className="w-full h-full max-h-[70vh]" />
+              <ProductMockup name={product.name} brand={product.brand} className="max-h-[70vh]" />
             </div>
             <div className="flex justify-center gap-2 mt-4">
               {product.images.map((_, idx) => (
