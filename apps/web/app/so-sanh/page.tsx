@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronRight, X, GitCompare, ArrowLeft, ShoppingCart, Heart, Star } from 'lucide-react'
+import { SmartImage } from '@/components/smart-image'
 
 interface Product {
   id: number
@@ -20,17 +21,17 @@ interface Product {
 const sampleProducts: Product[] = [
   {
     id: 1, name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', price: 32990000, originalPrice: 34990000,
-    rating: 4.8, reviews: 1245, image: '/api/placeholder/300/300', stock: 45,
+    rating: 4.8, reviews: 1245, image: '', stock: 45,
     specs: { 'Màn hình': '6.7" Super Retina XDR', 'Chip': 'Apple A17 Pro', 'RAM': '8GB', 'Pin': '4422 mAh', 'Camera': '48MP + 12MP + 12MP', 'OS': 'iOS 17' }
   },
   {
     id: 2, name: 'Samsung Galaxy S24 Ultra 256GB', brand: 'Samsung', price: 28990000, originalPrice: 31990000,
-    rating: 4.7, reviews: 892, image: '/api/placeholder/300/300', stock: 32,
+    rating: 4.7, reviews: 892, image: '', stock: 32,
     specs: { 'Màn hình': '6.8" Dynamic AMOLED 2X', 'Chip': 'Snapdragon 8 Gen 3', 'RAM': '12GB', 'Pin': '5000 mAh', 'Camera': '200MP + 12MP + 50MP + 10MP', 'OS': 'Android 14' }
   },
   {
     id: 3, name: 'Xiaomi 14 Ultra 512GB', brand: 'Xiaomi', price: 21990000, originalPrice: 24990000,
-    rating: 4.6, reviews: 567, image: '/api/placeholder/300/300', stock: 28,
+    rating: 4.6, reviews: 567, image: '', stock: 28,
     specs: { 'Màn hình': '6.73" LTPO AMOLED', 'Chip': 'Snapdragon 8 Gen 3', 'RAM': '16GB', 'Pin': '5300 mAh', 'Camera': '50MP + 50MP + 50MP + 50MP', 'OS': 'Android 14' }
   },
 ]
@@ -118,7 +119,7 @@ export default function ComparePage() {
                       <X className="w-4 h-4 text-gray-400" />
                     </button>
                     <Link href={`/san-pham/${product.id}`}>
-                      <img src={product.image} alt={product.name} className="w-full aspect-square object-cover rounded mb-3" />
+                      <SmartImage name={product.name} brand={product.brand} className="w-full aspect-square rounded mb-3 bg-gradient-to-br from-gray-50 to-gray-100" />
                       <p className="text-xs text-gray-500 mb-1">{product.brand}</p>
                       <h3 className="font-medium text-sm text-[#363636] hover:text-[#ca3838] line-clamp-2 min-h-[40px]">{product.name}</h3>
                     </Link>

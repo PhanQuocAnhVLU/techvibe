@@ -6,40 +6,41 @@ import {
   ChevronRight, Package, Search, Filter, Eye, 
   Truck, Check, Clock, X, Star
 } from 'lucide-react'
+import { SmartImage } from '@/components/smart-image'
 
 interface Order {
   id: string
   date: string
   total: number
   status: 'pending' | 'confirmed' | 'shipping' | 'completed' | 'cancelled'
-  items: { name: string; image: string; quantity: number; price: number }[]
+  items: { name: string; image: string; quantity: number; price: number; brand?: string }[]
   paymentMethod: string
 }
 
 const orders: Order[] = [
   {
     id: 'TS123456', date: '17/08/2024 14:30', total: 32990000, status: 'shipping',
-    items: [{ name: 'iPhone 15 Pro Max 256GB', image: '/api/placeholder/80/80', quantity: 1, price: 32990000 }],
+    items: [{ name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', image: '', quantity: 1, price: 32990000 }],
     paymentMethod: 'COD',
   },
   {
     id: 'TS123455', date: '15/08/2024 10:15', total: 6990000, status: 'completed',
-    items: [{ name: 'AirPods Pro 2', image: '/api/placeholder/80/80', quantity: 1, price: 6990000 }],
+    items: [{ name: 'AirPods Pro 2', brand: 'Apple', image: '', quantity: 1, price: 6990000 }],
     paymentMethod: 'Visa',
   },
   {
     id: 'TS123454', date: '10/08/2024 09:45', total: 45990000, status: 'completed',
-    items: [{ name: 'MacBook Pro 14" M3', image: '/api/placeholder/80/80', quantity: 1, price: 45990000 }],
+    items: [{ name: 'MacBook Pro 14 inch M3', brand: 'Apple', image: '', quantity: 1, price: 45990000 }],
     paymentMethod: 'VNPay',
   },
   {
     id: 'TS123453', date: '05/08/2024 16:20', total: 15990000, status: 'completed',
-    items: [{ name: 'Samsung Galaxy S24 Ultra', image: '/api/placeholder/80/80', quantity: 1, price: 15990000 }],
+    items: [{ name: 'Samsung Galaxy S24 Ultra', brand: 'Samsung', image: '', quantity: 1, price: 15990000 }],
     paymentMethod: 'MoMo',
   },
   {
     id: 'TS123452', date: '01/08/2024 11:30', total: 2890000, status: 'cancelled',
-    items: [{ name: 'Xiaomi 14 Pro', image: '/api/placeholder/80/80', quantity: 1, price: 2890000 }],
+    items: [{ name: 'Xiaomi 14 Pro', brand: 'Xiaomi', image: '', quantity: 1, price: 2890000 }],
     paymentMethod: 'COD',
   },
 ]
@@ -219,7 +220,7 @@ export default function OrdersPage() {
                         <div className="p-4 space-y-3">
                           {order.items.map((item, idx) => (
                             <div key={idx} className="flex gap-4">
-                              <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-lg" />
+                              <SmartImage name={item.name} brand={item.brand} className="w-16 h-16 rounded-lg" />
                               <div className="flex-1">
                                 <p className="font-medium text-[#363636]">{item.name}</p>
                                 <p className="text-sm text-gray-500">Số lượng: {item.quantity}</p>

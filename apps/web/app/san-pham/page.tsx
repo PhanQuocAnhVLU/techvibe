@@ -9,6 +9,7 @@ import {
   Heart, ShoppingCart
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { SmartImage } from '@/components/smart-image'
 
 const brands = ['Apple', 'Samsung', 'Xiaomi', 'OPPO', 'vivo', 'Realme', 'Nokia', 'Tecno']
 const categories = [
@@ -21,18 +22,18 @@ const categories = [
 ]
 
 const products = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', price: 32990000, originalPrice: 34990000, rating: 4.8, reviews: 1245, image: '/api/placeholder/300/300', badge: 'Giảm 2TR', stock: 45, sold: 234 },
-  { id: 2, name: 'Samsung Galaxy S24 Ultra 256GB', brand: 'Samsung', price: 28990000, originalPrice: 31990000, rating: 4.7, reviews: 892, image: '/api/placeholder/300/300', badge: '', stock: 32, sold: 189 },
-  { id: 3, name: 'Xiaomi 14 Ultra', brand: 'Xiaomi', price: 18990000, originalPrice: 21990000, rating: 4.6, reviews: 567, image: '/api/placeholder/300/300', badge: 'Mới', stock: 28, sold: 78 },
-  { id: 4, name: 'OPPO Find X7 Pro', brand: 'OPPO', price: 15990000, originalPrice: 17990000, rating: 4.5, reviews: 234, image: '/api/placeholder/300/300', badge: '', stock: 15, sold: 45 },
-  { id: 5, name: 'iPhone 15 128GB', brand: 'Apple', price: 22990000, originalPrice: 24990000, rating: 4.8, reviews: 2103, image: '/api/placeholder/300/300', badge: '', stock: 67, sold: 567 },
-  { id: 6, name: 'Samsung Galaxy Z Flip5', brand: 'Samsung', price: 19990000, originalPrice: 22990000, rating: 4.6, reviews: 456, image: '/api/placeholder/300/300', badge: 'Trả góp 0%', stock: 23, sold: 123 },
-  { id: 7, name: 'vivo X100 Pro', brand: 'vivo', price: 16990000, originalPrice: 18990000, rating: 4.7, reviews: 178, image: '/api/placeholder/300/300', badge: 'Mới', stock: 12, sold: 34 },
-  { id: 8, name: 'Realme GT5 Pro', brand: 'Realme', price: 12990000, originalPrice: 14990000, rating: 4.5, reviews: 345, image: '/api/placeholder/300/300', badge: '', stock: 34, sold: 89 },
-  { id: 9, name: 'MacBook Pro 14" M3', brand: 'Apple', price: 45990000, originalPrice: 49990000, rating: 4.9, reviews: 567, image: '/api/placeholder/300/300', badge: 'Hot', stock: 18, sold: 67 },
-  { id: 10, name: 'iPad Pro 11" M2', brand: 'Apple', price: 27990000, originalPrice: 29990000, rating: 4.8, reviews: 789, image: '/api/placeholder/300/300', badge: 'Giảm 2TR', stock: 25, sold: 89 },
-  { id: 11, name: 'Samsung Galaxy Tab S9 Ultra', brand: 'Samsung', price: 32990000, originalPrice: 35990000, rating: 4.7, reviews: 234, image: '/api/placeholder/300/300', badge: '', stock: 8, sold: 45 },
-  { id: 12, name: 'AirPods Pro 2', brand: 'Apple', price: 6990000, originalPrice: 7990000, rating: 4.9, reviews: 3456, image: '/api/placeholder/300/300', badge: 'Bán chạy', stock: 89, sold: 456 },
+  { id: 1, name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', price: 32990000, originalPrice: 34990000, rating: 4.8, reviews: 1245, image: '', badge: 'Giảm 2TR', stock: 45, sold: 234 },
+  { id: 2, name: 'Samsung Galaxy S24 Ultra 256GB', brand: 'Samsung', price: 28990000, originalPrice: 31990000, rating: 4.7, reviews: 892, image: '', badge: '', stock: 32, sold: 189 },
+  { id: 3, name: 'Xiaomi 14 Ultra', brand: 'Xiaomi', price: 18990000, originalPrice: 21990000, rating: 4.6, reviews: 567, image: '', badge: 'Mới', stock: 28, sold: 78 },
+  { id: 4, name: 'OPPO Find X7 Pro', brand: 'OPPO', price: 15990000, originalPrice: 17990000, rating: 4.5, reviews: 234, image: '', badge: '', stock: 15, sold: 45 },
+  { id: 5, name: 'iPhone 15 128GB', brand: 'Apple', price: 22990000, originalPrice: 24990000, rating: 4.8, reviews: 2103, image: '', badge: '', stock: 67, sold: 567 },
+  { id: 6, name: 'Samsung Galaxy Z Flip5', brand: 'Samsung', price: 19990000, originalPrice: 22990000, rating: 4.6, reviews: 456, image: '', badge: 'Trả góp 0%', stock: 23, sold: 123 },
+  { id: 7, name: 'vivo X100 Pro', brand: 'vivo', price: 16990000, originalPrice: 18990000, rating: 4.7, reviews: 178, image: '', badge: 'Mới', stock: 12, sold: 34 },
+  { id: 8, name: 'Realme GT5 Pro', brand: 'Realme', price: 12990000, originalPrice: 14990000, rating: 4.5, reviews: 345, image: '', badge: '', stock: 34, sold: 89 },
+  { id: 9, name: 'MacBook Pro 14 inch M3', brand: 'Apple', price: 45990000, originalPrice: 49990000, rating: 4.9, reviews: 567, image: '', badge: 'Hot', stock: 18, sold: 67 },
+  { id: 10, name: 'iPad Pro 11 inch M2', brand: 'Apple', price: 27990000, originalPrice: 29990000, rating: 4.8, reviews: 789, image: '', badge: 'Giảm 2TR', stock: 25, sold: 89 },
+  { id: 11, name: 'Samsung Galaxy Tab S9 Ultra', brand: 'Samsung', price: 32990000, originalPrice: 35990000, rating: 4.7, reviews: 234, image: '', badge: '', stock: 8, sold: 45 },
+  { id: 12, name: 'AirPods Pro 2', brand: 'Apple', price: 6990000, originalPrice: 7990000, rating: 4.9, reviews: 3456, image: '', badge: 'Bán chạy', stock: 89, sold: 456 },
 ]
 
 const sortOptions = [
@@ -490,11 +491,11 @@ function ProductCard({ product }: { product: any }) {
       className="group bg-white rounded-lg overflow-hidden border border-gray-100 hover:shadow-lg transition-all"
     >
       {/* Image */}
-      <div className="relative aspect-square bg-gray-50">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover"
+      <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100">
+        <SmartImage
+          name={product.name}
+          brand={product.brand}
+          className="w-full h-full"
         />
         {product.badge && (
           <span className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-bold rounded ${
@@ -572,11 +573,11 @@ function ProductListCard({ product }: { product: any }) {
       className="group flex gap-4 bg-white rounded-lg overflow-hidden border border-gray-100 hover:shadow-md transition-all p-4"
     >
       {/* Image */}
-      <div className="relative w-28 h-28 shrink-0 bg-gray-50 rounded-lg overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover"
+      <div className="relative w-28 h-28 shrink-0 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden">
+        <SmartImage
+          name={product.name}
+          brand={product.brand}
+          className="w-full h-full"
         />
         {product.badge && (
           <span className="absolute top-1 left-1 px-1.5 py-0.5 text-[10px] font-bold bg-[#ca3838] text-white rounded">

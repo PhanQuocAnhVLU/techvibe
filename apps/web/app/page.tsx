@@ -9,7 +9,7 @@ import { Search, ShoppingCart, User, Menu, X, ChevronRight,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useApp } from '@/lib/app-context'
-import { ProductImage } from '@/components/product-image'
+import { SmartImage } from '@/components/smart-image'
 
 const banners = [
   { id: 1, title: 'iPhone 15 Pro Max', subtitle: 'Siêu phẩm chính hãng Apple', bg: 'from-gray-900 via-gray-800 to-gray-700', name: 'iPhone 15 Pro Max 256GB' },
@@ -76,9 +76,9 @@ const laptopProducts = [
 const brands = ['Apple', 'Samsung', 'Xiaomi', 'OPPO', 'vivo', 'Realme', 'Nokia', 'Tecno', 'ASUS', 'Dell', 'HP', 'Lenovo']
 
 const news = [
-  { id: 1, title: 'iPhone 16 Pro lộ diện với thiết kế hoàn toàn mới', image: '/api/placeholder/400/250', date: '16/08/2024' },
-  { id: 2, title: 'Samsung Galaxy S25 Ultra sẽ có camera 200MP?', image: '/api/placeholder/400/250', date: '15/08/2024' },
-  { id: 3, title: 'MacBook Air M4 ra mắt cuối năm nay', image: '/api/placeholder/400/250', date: '14/08/2024' },
+  { id: 1, title: 'iPhone 16 Pro lộ diện với thiết kế hoàn toàn mới', image: 'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png', date: '16/08/2024' },
+  { id: 2, title: 'Samsung Galaxy S25 Ultra sẽ có camera 200MP?', image: 'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/s/a/samsung-galaxy-s24-ultra_2.png', date: '15/08/2024' },
+  { id: 3, title: 'MacBook Air M4 ra mắt cuối năm nay', image: 'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/m/a/macbook-air-m2_2.png', date: '14/08/2024' },
 ]
 
 function formatPrice(price: number) {
@@ -365,7 +365,7 @@ export default function HomePage() {
                     <div className="hidden sm:block w-80 h-56 relative">
                       <div className="absolute inset-0 bg-white/10 rounded-2xl blur-xl animate-pulse" />
                       <div className="relative animate-float h-full">
-                        <ProductImage name={banner.name} className="w-full h-full drop-shadow-2xl" />
+                        <SmartImage name={banner.name} brand="" className="w-full h-full drop-shadow-2xl" />
                       </div>
                     </div>
                   </div>
@@ -465,7 +465,7 @@ export default function HomePage() {
                   >
                     <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
                       <div className="zoom-img p-2">
-                        <ProductImage name={product.name} className="w-full aspect-square" />
+                        <SmartImage name={product.name} brand={product.brand} className="w-full aspect-square" />
                       </div>
                       <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-[#ca3838] text-white text-[10px] font-bold rounded animate-pulse">
                         -{discount}%
@@ -738,7 +738,7 @@ function ProductSection({ title, subtitle, products, viewAllHref, bgColor = '', 
                 <Link href={`/san-pham/${product.id}`} onClick={() => onProductClick?.(product)}>
                   <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden group">
                     <div className="zoom-img p-2">
-                      <ProductImage name={product.name} className="w-full aspect-square" />
+                      <SmartImage name={product.name} brand={product.brand} className="w-full aspect-square" />
                     </div>
                     {product.badge && (
                       <span className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-bold rounded shadow ${

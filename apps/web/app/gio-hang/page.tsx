@@ -6,6 +6,7 @@ import {
   ChevronRight, Minus, Plus, Trash2, Heart, 
   Tag, Truck, ShieldCheck, ArrowLeft, Check
 } from 'lucide-react'
+import { SmartImage } from '@/components/smart-image'
 
 interface CartItem {
   id: number
@@ -16,11 +17,12 @@ interface CartItem {
   quantity: number
   image: string
   stock: number
+  brand?: string
 }
 
 const initialCartItems: CartItem[] = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', variant: 'Titan tự nhiên', price: 32990000, originalPrice: 34990000, quantity: 1, image: '/api/placeholder/200/200', stock: 45 },
-  { id: 2, name: 'AirPods Pro 2', variant: 'USB-C', price: 6990000, originalPrice: 7990000, quantity: 2, image: '/api/placeholder/200/200', stock: 12 },
+  { id: 1, name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', variant: 'Titan tự nhiên', price: 32990000, originalPrice: 34990000, quantity: 1, image: '', stock: 45 },
+  { id: 2, name: 'AirPods Pro 2', brand: 'Apple', variant: 'USB-C', price: 6990000, originalPrice: 7990000, quantity: 2, image: '', stock: 12 },
 ]
 
 function formatPrice(price: number) {
@@ -210,10 +212,10 @@ export default function CartPage() {
 
                     {/* Image */}
                     <Link href={`/san-pham/${item.id}`} className="shrink-0">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-24 h-24 object-cover rounded-lg"
+                      <SmartImage
+                        name={item.name}
+                        brand={item.brand}
+                        className="w-24 h-24 rounded-lg"
                       />
                     </Link>
 

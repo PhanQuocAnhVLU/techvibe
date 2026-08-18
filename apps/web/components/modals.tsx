@@ -8,13 +8,14 @@ import {
   Heart, ShoppingCart, ArrowRight, Trash2
 } from 'lucide-react'
 import { useApp } from '@/lib/app-context'
+import { SmartImage } from '@/components/smart-image'
 
 const trendingSearches = ['iPhone 15', 'Samsung Galaxy S24', 'MacBook Air M3', 'AirPods Pro 2', 'Xiaomi 14']
 const suggestions = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 32990000, image: '/api/placeholder/100/100', brand: 'Apple' },
-  { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 28990000, image: '/api/placeholder/100/100', brand: 'Samsung' },
-  { id: 3, name: 'MacBook Air M2 13"', price: 26990000, image: '/api/placeholder/100/100', brand: 'Apple' },
-  { id: 4, name: 'Xiaomi 14 Pro', price: 18990000, image: '/api/placeholder/100/100', brand: 'Xiaomi' },
+  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 32990000, image: '', brand: 'Apple' },
+  { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 28990000, image: '', brand: 'Samsung' },
+  { id: 3, name: 'MacBook Air M2 13 inch', price: 26990000, image: '', brand: 'Apple' },
+  { id: 4, name: 'Xiaomi 14 Pro', price: 18990000, image: '', brand: 'Xiaomi' },
 ]
 
 export function SearchModal() {
@@ -101,7 +102,7 @@ export function SearchModal() {
                       onClick={() => setIsSearchOpen(false)}
                       className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg"
                     >
-                      <img src={item.image} alt="" className="w-12 h-12 object-cover rounded" />
+                      <SmartImage name={item.name} brand={item.brand} className="w-12 h-12 rounded" />
                       <div className="flex-1">
                         <p className="text-sm font-medium">{item.name}</p>
                         <p className="text-xs text-gray-500">{item.brand}</p>
@@ -192,6 +193,20 @@ export function CartDrawer() {
 
   if (!isCartOpen) return null
 
+  // Detect brand from name
+  const detectBrand = (name: string): string | undefined => {
+    const lower = name.toLowerCase()
+    if (lower.includes('iphone') || lower.includes('ipad') || lower.includes('macbook') || lower.includes('airpod')) return 'Apple'
+    if (lower.includes('samsung') || lower.includes('galaxy')) return 'Samsung'
+    if (lower.includes('xiaomi')) return 'Xiaomi'
+    if (lower.includes('oppo')) return 'OPPO'
+    if (lower.includes('vivo')) return 'vivo'
+    if (lower.includes('realme')) return 'Realme'
+    if (lower.includes('dell')) return 'Dell'
+    if (lower.includes('asus')) return 'ASUS'
+    return undefined
+  }
+
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const shippingFee = subtotal >= 500000 ? 0 : 30000
 
@@ -224,7 +239,7 @@ export function CartDrawer() {
             <div className="space-y-4">
               {cartItems.map(item => (
                 <div key={item.id} className="flex gap-3 pb-4 border-b">
-                  <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
+                  <SmartImage name={item.name} brand={detectBrand(item.name)} className="w-16 h-16 rounded" />
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm line-clamp-2">{item.name}</p>
                     <p className="text-sm text-[#ca3838] font-semibold mt-1">
@@ -317,8 +332,8 @@ export function QuickViewModal() {
           <X className="w-5 h-5" />
         </button>
 
-        <div className="md:w-1/2 bg-gray-50 flex items-center justify-center p-8">
-          <img src={product.image} alt={product.name} className="max-w-full max-h-[400px] object-contain" />
+        <div className="md:w-1/2 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8">
+          <SmartImage name={product.name} brand={product.brand} className="max-w-full max-h-[400px] object-contain" />
         </div>
 
         <div className="md:w-1/2 p-6 overflow-y-auto">

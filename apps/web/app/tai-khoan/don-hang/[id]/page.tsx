@@ -5,6 +5,7 @@ import {
   ChevronRight, Package, Truck, Check, MapPin, Phone, 
   Mail, Clock, CreditCard, Star, MessageSquare
 } from 'lucide-react'
+import { SmartImage } from '@/components/smart-image'
 
 const order = {
   id: 'TS123456',
@@ -26,8 +27,9 @@ const order = {
     {
       id: 1,
       name: 'iPhone 15 Pro Max 256GB',
+      brand: 'Apple',
       variant: 'Titan tự nhiên',
-      image: '/api/placeholder/100/100',
+      image: '',
       quantity: 1,
       price: 32990000,
     }
@@ -147,7 +149,7 @@ export default function OrderDetailPage() {
                 {order.items.map(item => (
                   <div key={item.id} className="flex gap-4 pb-4 border-b border-gray-100 last:border-0 last:pb-0">
                     <Link href={`/san-pham/${item.id}`}>
-                      <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded-lg" />
+                      <SmartImage name={item.name} brand={item.brand} className="w-20 h-20 rounded-lg" />
                     </Link>
                     <div className="flex-1">
                       <Link href={`/san-pham/${item.id}`}>

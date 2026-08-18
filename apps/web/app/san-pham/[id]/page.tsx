@@ -8,7 +8,7 @@ import {
   ShoppingCart, TruckIcon, Eye, ZoomIn, X, Camera
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { ProductImage } from '@/components/product-image'
+import { SmartImage } from '@/components/smart-image'
 
 // Sample product data
 const product = {
@@ -21,10 +21,10 @@ const product = {
   rating: 4.8,
   reviews: 1245,
   images: [
-    '/api/placeholder/600/600',
-    '/api/placeholder/600/600',
-    '/api/placeholder/600/600',
-    '/api/placeholder/600/600',
+    'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png',
+    'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png',
+    'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png',
+    'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png',
   ],
   colors: [
     { name: 'Titan tự nhiên', code: '#9A9A9A' },
@@ -58,15 +58,15 @@ Màn hình Super Retina XDR 6.7" với ProMotion 120Hz mang đến trải nghi�
     'Tặng 500.000đ khi thanh toán qua Ví ShopeePay',
   ],
   accessories: [
-    { id: 1, name: 'AirPods Pro 2', price: 6990000, image: '/api/placeholder/100/100' },
-    { id: 2, name: 'Ốp lưng MagSafe', price: 990000, image: '/api/placeholder/100/100' },
-    { id: 3, name: 'Cáp sạc USB-C', price: 590000, image: '/api/placeholder/100/100' },
+    { id: 1, name: 'AirPods Pro 2', brand: 'Apple', price: 6990000, image: '' },
+    { id: 2, name: 'Ốp lưng MagSafe', brand: 'Apple', price: 990000, image: '' },
+    { id: 3, name: 'Cáp sạc USB-C', brand: 'Apple', price: 590000, image: '' },
   ],
   similarProducts: [
-    { id: 2, name: 'iPhone 15 Pro', price: 28990000, image: '/api/placeholder/200/200' },
-    { id: 3, name: 'iPhone 15 Plus', price: 24990000, image: '/api/placeholder/200/200' },
-    { id: 4, name: 'iPhone 14 Pro Max', price: 27990000, image: '/api/placeholder/200/200' },
-    { id: 5, name: 'iPhone 15', price: 22990000, image: '/api/placeholder/200/200' },
+    { id: 2, name: 'iPhone 15 Pro', brand: 'Apple', price: 28990000, image: '' },
+    { id: 3, name: 'iPhone 15 Plus', brand: 'Apple', price: 24990000, image: '' },
+    { id: 4, name: 'iPhone 14 Pro Max', brand: 'Apple', price: 27990000, image: '' },
+    { id: 5, name: 'iPhone 15', brand: 'Apple', price: 22990000, image: '' },
   ],
 }
 
@@ -152,7 +152,7 @@ export default function ProductDetailPage() {
               onClick={() => setLightboxOpen(true)}
             >
               <div className="absolute inset-0 flex items-center justify-center zoom-img">
-                <ProductImage name={product.name} className="w-full h-full p-8" />
+                <SmartImage name={product.name} brand={product.brand} className="w-full h-full p-8" />
               </div>
               {discount > 0 && (
                 <span className="absolute top-4 left-4 px-3 py-1.5 text-sm font-semibold bg-[#ca3838] text-white rounded-lg animate-pulse">
@@ -186,7 +186,7 @@ export default function ProductDetailPage() {
                     selectedImage === idx ? 'border-[#ca3838] shadow-md' : 'border-transparent hover:border-gray-300 bg-gray-50'
                   }`}
                 >
-                  <ProductImage name={product.name} className="w-full h-full p-2" />
+                  <SmartImage name={product.name} brand={product.brand} className="w-full h-full p-2" />
                 </button>
               ))}
             </div>
@@ -436,7 +436,7 @@ export default function ProductDetailPage() {
             {product.accessories.map(item => (
               <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-lg p-4 text-center hover:shadow-xl transition-all hover:-translate-y-1 border border-gray-100 shine">
                 <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mb-3 overflow-hidden zoom-img">
-                  <ProductImage name={item.name} className="w-full aspect-square p-2" />
+                  <SmartImage name={item.name} brand={product.brand} className="w-full aspect-square p-2" />
                 </div>
                 <p className="font-medium text-sm text-[#363636]">{item.name}</p>
                 <p className="text-[#ca3838] font-semibold mt-1">{formatPrice(item.price)}</p>
@@ -452,7 +452,7 @@ export default function ProductDetailPage() {
             {product.similarProducts.map(item => (
               <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-lg p-3 hover:shadow-xl transition-all hover:-translate-y-1 border border-gray-100 group shine">
                 <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mb-3 overflow-hidden zoom-img">
-                  <ProductImage name={item.name} className="w-full aspect-square p-2" />
+                  <SmartImage name={item.name} brand={product.brand} className="w-full aspect-square p-2" />
                 </div>
                 <p className="font-medium text-sm text-[#363636] line-clamp-2 group-hover:text-[#ca3838] transition-colors">{item.name}</p>
                 <p className="text-[#ca3838] font-semibold mt-2">{formatPrice(item.price)}</p>
@@ -482,7 +482,7 @@ export default function ProductDetailPage() {
           </button>
           <div className="max-w-3xl w-full" onClick={e => e.stopPropagation()}>
             <div className="bg-white rounded-2xl p-12 flex items-center justify-center">
-              <ProductImage name={product.name} className="w-full h-full max-h-[70vh]" />
+              <SmartImage name={product.name} brand={product.brand} className="w-full h-full max-h-[70vh]" />
             </div>
             <div className="flex justify-center gap-2 mt-4">
               {product.images.map((_, idx) => (

@@ -6,6 +6,7 @@ import {
   ChevronRight, MapPin, Truck, CreditCard, Smartphone,
   Check, AlertCircle, Plus, Eye, EyeOff, ArrowLeft
 } from 'lucide-react'
+import { SmartImage } from '@/components/smart-image'
 
 interface CartItem {
   id: number
@@ -14,11 +15,12 @@ interface CartItem {
   price: number
   quantity: number
   image: string
+  brand?: string
 }
 
 const cartItems: CartItem[] = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', variant: 'Titan tự nhiên', price: 32990000, quantity: 1, image: '/api/placeholder/200/200' },
-  { id: 2, name: 'AirPods Pro 2', variant: 'USB-C', price: 6990000, quantity: 2, image: '/api/placeholder/200/200' },
+  { id: 1, name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', variant: 'Titan tự nhiên', price: 32990000, quantity: 1, image: '' },
+  { id: 2, name: 'AirPods Pro 2', brand: 'Apple', variant: 'USB-C', price: 6990000, quantity: 2, image: '' },
 ]
 
 const savedAddresses = [
@@ -324,10 +326,10 @@ export default function CheckoutPage() {
                 <div className="space-y-4 mb-6 pb-4 border-b border-gray-200">
                   {cartItems.map(item => (
                     <div key={item.id} className="flex gap-3">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-16 h-16 object-cover rounded-lg"
+                      <SmartImage
+                        name={item.name}
+                        brand={item.brand}
+                        className="w-16 h-16 rounded-lg"
                       />
                       <div className="flex-1">
                         <p className="text-sm font-medium line-clamp-2">{item.name}</p>

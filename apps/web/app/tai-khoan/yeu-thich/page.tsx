@@ -2,12 +2,13 @@
 
 import Link from 'next/link'
 import { ChevronRight, Heart, Trash2, ShoppingCart } from 'lucide-react'
+import { SmartImage } from '@/components/smart-image'
 
 const wishlistProducts = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 32990000, originalPrice: 34990000, image: '/api/placeholder/300/300' },
-  { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 28990000, originalPrice: 31990000, image: '/api/placeholder/300/300' },
-  { id: 3, name: 'MacBook Pro 14" M3', price: 45990000, originalPrice: 49990000, image: '/api/placeholder/300/300' },
-  { id: 4, name: 'AirPods Pro 2', price: 6990000, originalPrice: 7990000, image: '/api/placeholder/300/300' },
+  { id: 1, name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', price: 32990000, originalPrice: 34990000, image: '' },
+  { id: 2, name: 'Samsung Galaxy S24 Ultra', brand: 'Samsung', price: 28990000, originalPrice: 31990000, image: '' },
+  { id: 3, name: 'MacBook Pro 14 inch M3', brand: 'Apple', price: 45990000, originalPrice: 49990000, image: '' },
+  { id: 4, name: 'AirPods Pro 2', brand: 'Apple', price: 6990000, originalPrice: 7990000, image: '' },
 ]
 
 function formatPrice(price: number) {
@@ -83,7 +84,7 @@ export default function WishlistPage() {
                   <div key={product.id} className="bg-white rounded-lg overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow group">
                     <Link href={`/san-pham/${product.id}`}>
                       <div className="relative aspect-square bg-gray-50">
-                        <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                        <SmartImage name={product.name} brand={product.brand} className="w-full h-full" />
                         {discount > 0 && (
                           <span className="absolute top-2 left-2 px-2 py-0.5 text-xs font-bold bg-[#ca3838] text-white rounded">
                             -{discount}%
