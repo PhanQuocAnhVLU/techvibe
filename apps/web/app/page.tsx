@@ -76,9 +76,9 @@ const laptopProducts = [
 const brands = ['Apple', 'Samsung', 'Xiaomi', 'OPPO', 'vivo', 'Realme', 'Nokia', 'Tecno', 'ASUS', 'Dell', 'HP', 'Lenovo']
 
 const news = [
-  { id: 1, title: 'iPhone 16 Pro lộ diện với thiết kế hoàn toàn mới', image: 'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png', date: '16/08/2024' },
-  { id: 2, title: 'Samsung Galaxy S25 Ultra sẽ có camera 200MP?', image: 'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/s/a/samsung-galaxy-s24-ultra_2.png', date: '15/08/2024' },
-  { id: 3, title: 'MacBook Air M4 ra mắt cuối năm nay', image: 'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/m/a/macbook-air-m2_2.png', date: '14/08/2024' },
+  { id: 1, title: 'iPhone 16 Pro lộ diện với thiết kế hoàn toàn mới', image: 'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-pro-max_3.png', date: '16/08/2024' },
+  { id: 2, title: 'Samsung Galaxy S25 Ultra sẽ có camera 200MP?', image: 'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/a/samsung-galaxy-s24-ultra_2.png', date: '15/08/2024' },
+  { id: 3, title: 'MacBook Air M4 ra mắt cuối năm nay', image: 'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/a/macbook-air-m2_2.png', date: '14/08/2024' },
 ]
 
 function formatPrice(price: number) {

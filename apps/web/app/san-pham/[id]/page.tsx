@@ -21,10 +21,10 @@ const product = {
   rating: 4.8,
   reviews: 1245,
   images: [
-    'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png',
-    'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png',
-    'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png',
-    'https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-pro-max_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-pro-max_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-pro-max_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-pro-max_3.png',
   ],
   colors: [
     { name: 'Titan tự nhiên', code: '#9A9A9A' },

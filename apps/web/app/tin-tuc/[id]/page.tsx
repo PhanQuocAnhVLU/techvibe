@@ -48,7 +48,7 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
             <span className="flex items-center gap-1"><Eye className="w-4 h-4" /> 1,234 lượt xem</span>
           </div>
 
-          <img src="https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15-pro-max_3.png" alt="" className="w-full aspect-video object-cover rounded-lg my-6" />
+          <img src="https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-pro-max_3.png" alt="" className="w-full aspect-video object-cover rounded-lg my-6" />
 
           <div className="prose max-w-none">
             <p className="text-lg text-gray-700 leading-relaxed mb-4">
@@ -87,7 +87,7 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
             {[1, 2, 3].map(i => (
               <Link key={i} href={`/tin-tuc/${i}`} className="group">
                 <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden mb-2">
-                  <img src={`https://cdn.cellphones.com.vn/358x358,webp/media/catalog/product/i/p/iphone-15_2.png`} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                  <img src={`https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15_2.png`} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                 </div>
                 <h3 className="font-medium text-sm line-clamp-2 group-hover:text-[#ca3838]">Bài viết liên quan {i}</h3>
                 <p className="text-xs text-gray-500 mt-1">16/08/2024</p>

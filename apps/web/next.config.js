@@ -8,7 +8,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '**.cellphones.com.vn',
+        hostname: 'cdn2.cellphones.com.vn',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.cellphones.com.vn',
       },
     ],
   },
