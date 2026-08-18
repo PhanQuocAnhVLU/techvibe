@@ -5,9 +5,10 @@ import Link from 'next/link'
 import { 
   ChevronRight, Star, Minus, Plus, Heart, Share2, Truck, 
   ShieldCheck, RotateCcw, Check, ChevronDown, ChevronUp,
-  ShoppingCart, TruckIcon
+  ShoppingCart, TruckIcon, Eye, ZoomIn, X, Camera
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ProductImage } from '@/components/product-image'
 
 // Sample product data
 const product = {
@@ -86,6 +87,7 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1)
   const [showFullDesc, setShowFullDesc] = useState(false)
   const [activeTab, setActiveTab] = useState<'description' | 'specs' | 'reviews'>('description')
+  const [lightboxOpen, setLightboxOpen] = useState(false)
 
   const currentPrice = product.storages[selectedStorage].price
   const discount = product.originalPrice > currentPrice
@@ -145,38 +147,46 @@ export default function ProductDetailPage() {
           {/* Left - Images - Style TGDĐ */}
           <div className="space-y-4">
             {/* Main Image */}
-            <div className="relative aspect-square bg-white rounded-lg overflow-hidden">
-              <img
-                src={product.images[selectedImage]}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
+            <div 
+              className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden group cursor-zoom-in"
+              onClick={() => setLightboxOpen(true)}
+            >
+              <div className="absolute inset-0 flex items-center justify-center zoom-img">
+                <ProductImage name={product.name} className="w-full h-full p-8" />
+              </div>
               {discount > 0 && (
-                <span className="absolute top-4 left-4 px-3 py-1.5 text-sm font-semibold bg-[#ca3838] text-white rounded-lg">
+                <span className="absolute top-4 left-4 px-3 py-1.5 text-sm font-semibold bg-[#ca3838] text-white rounded-lg animate-pulse">
                   -{discount}%
                 </span>
               )}
               <div className="absolute bottom-4 left-4 flex gap-2">
-                <button className="p-2 bg-white/90 rounded-full hover:bg-white shadow">
+                <button className="p-2 bg-white/90 rounded-full hover:bg-white shadow hover:scale-110 transition-transform">
                   <Heart className="w-5 h-5 text-gray-400 hover:text-red-500" />
                 </button>
-                <button className="p-2 bg-white/90 rounded-full hover:bg-white shadow">
+                <button className="p-2 bg-white/90 rounded-full hover:bg-white shadow hover:scale-110 transition-transform">
                   <Share2 className="w-5 h-5 text-gray-400" />
                 </button>
+              </div>
+              <button className="absolute top-4 right-4 p-2 bg-white/90 rounded-full opacity-0 group-hover:opacity-100 hover:bg-white shadow hover:scale-110 transition-all">
+                <ZoomIn className="w-5 h-5 text-gray-700" />
+              </button>
+              <div className="absolute bottom-4 right-4 flex items-center gap-1 px-2 py-1 bg-white/90 rounded-full text-xs">
+                <Camera className="w-3 h-3" />
+                <span>{selectedImage + 1} / {product.images.length}</span>
               </div>
             </div>
 
             {/* Thumbnails */}
-            <div className="flex gap-3">
+            <div className="flex gap-2 overflow-x-auto scrollbar-thin">
               {product.images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)}
-                  className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
-                    selectedImage === idx ? 'border-[#ca3838]' : 'border-transparent hover:border-gray-300'
+                  className={`shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all hover:scale-105 ${
+                    selectedImage === idx ? 'border-[#ca3838] shadow-md' : 'border-transparent hover:border-gray-300 bg-gray-50'
                   }`}
                 >
-                  <img src={img} alt="" className="w-full h-full object-cover" />
+                  <ProductImage name={product.name} className="w-full h-full p-2" />
                 </button>
               ))}
             </div>
@@ -424,8 +434,10 @@ export default function ProductDetailPage() {
           <h2 className="text-lg font-bold text-[#363636] mb-4">Phụ kiện đi kèm</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {product.accessories.map(item => (
-              <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-lg p-4 text-center hover:shadow-lg transition-shadow border border-gray-100">
-                <img src={item.image} alt={item.name} className="w-full aspect-square object-cover rounded-lg mb-3" />
+              <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-lg p-4 text-center hover:shadow-xl transition-all hover:-translate-y-1 border border-gray-100 shine">
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mb-3 overflow-hidden zoom-img">
+                  <ProductImage name={item.name} className="w-full aspect-square p-2" />
+                </div>
                 <p className="font-medium text-sm text-[#363636]">{item.name}</p>
                 <p className="text-[#ca3838] font-semibold mt-1">{formatPrice(item.price)}</p>
               </Link>
@@ -438,8 +450,10 @@ export default function ProductDetailPage() {
           <h2 className="text-lg font-bold text-[#363636] mb-4">Sản phẩm tương tự</h2>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
             {product.similarProducts.map(item => (
-              <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-lg p-3 hover:shadow-lg transition-shadow border border-gray-100 group">
-                <img src={item.image} alt={item.name} className="w-full aspect-square object-cover rounded-lg mb-3" />
+              <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-lg p-3 hover:shadow-xl transition-all hover:-translate-y-1 border border-gray-100 group shine">
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mb-3 overflow-hidden zoom-img">
+                  <ProductImage name={item.name} className="w-full aspect-square p-2" />
+                </div>
                 <p className="font-medium text-sm text-[#363636] line-clamp-2 group-hover:text-[#ca3838] transition-colors">{item.name}</p>
                 <p className="text-[#ca3838] font-semibold mt-2">{formatPrice(item.price)}</p>
               </Link>
@@ -447,6 +461,43 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <div className="fixed inset-0 z-[70] bg-black/95 flex items-center justify-center p-4 animate-fade-in" onClick={() => setLightboxOpen(false)}>
+          <button onClick={() => setLightboxOpen(false)} className="absolute top-4 right-4 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all hover:scale-110">
+            <X className="w-6 h-6" />
+          </button>
+          <button 
+            onClick={(e) => { e.stopPropagation(); setSelectedImage(prev => (prev - 1 + product.images.length) % product.images.length) }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white"
+          >
+            <ChevronRight className="w-6 h-6 rotate-180" />
+          </button>
+          <button 
+            onClick={(e) => { e.stopPropagation(); setSelectedImage(prev => (prev + 1) % product.images.length) }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+          <div className="max-w-3xl w-full" onClick={e => e.stopPropagation()}>
+            <div className="bg-white rounded-2xl p-12 flex items-center justify-center">
+              <ProductImage name={product.name} className="w-full h-full max-h-[70vh]" />
+            </div>
+            <div className="flex justify-center gap-2 mt-4">
+              {product.images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedImage(idx)}
+                  className={`h-2 rounded-full transition-all ${
+                    selectedImage === idx ? 'bg-white w-8' : 'bg-white/40 w-2'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

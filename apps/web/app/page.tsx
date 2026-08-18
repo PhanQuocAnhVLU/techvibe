@@ -5,17 +5,18 @@ import Link from 'next/link'
 import { Search, ShoppingCart, User, Menu, X, ChevronRight, 
   ChevronLeft, Star, Heart, Truck, ShieldCheck, RotateCcw,
   Phone, Mail, MapPin, Clock, ArrowRight, Sparkles, Package,
-  Trash2, Plus, Minus, Bell, Eye, GitCompare
+  Trash2, Plus, Minus, Bell, Eye, GitCompare, Zap, Award, TrendingUp
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useApp } from '@/lib/app-context'
+import { ProductImage } from '@/components/product-image'
 
 const banners = [
-  { id: 1, title: 'iPhone 15 Series', subtitle: 'Siêu phẩm chính hãng Apple', bg: 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700', image: '/api/placeholder/500/300' },
-  { id: 2, title: 'Samsung Galaxy S24', subtitle: 'Flagship Android đỉnh cao', bg: 'bg-gradient-to-r from-blue-600 to-blue-800', image: '/api/placeholder/500/300' },
-  { id: 3, title: 'MacBook Air M3', subtitle: 'Mỏng nhẹ - Mạnh mẽ', bg: 'bg-gradient-to-r from-gray-600 to-gray-800', image: '/api/placeholder/500/300' },
-  { id: 4, title: 'Flash Sale 8.8', subtitle: 'Giảm đến 50%', bg: 'bg-gradient-to-r from-red-500 to-orange-500', image: '/api/placeholder/500/300' },
-  { id: 5, title: 'Xiaomi 14 Pro', subtitle: 'Camera Leica đỉnh cao', bg: 'bg-gradient-to-r from-orange-500 to-red-500', image: '/api/placeholder/500/300' },
+  { id: 1, title: 'iPhone 15 Pro Max', subtitle: 'Siêu phẩm chính hãng Apple', bg: 'from-gray-900 via-gray-800 to-gray-700', name: 'iPhone 15 Pro Max 256GB' },
+  { id: 2, title: 'Samsung Galaxy S24', subtitle: 'Flagship Android đỉnh cao', bg: 'from-blue-600 to-blue-800', name: 'Samsung Galaxy S24 Ultra' },
+  { id: 3, title: 'MacBook Air M3', subtitle: 'Mỏng nhẹ - Mạnh mẽ', bg: 'from-gray-600 to-gray-800', name: 'MacBook Pro 14 M3' },
+  { id: 4, title: 'Flash Sale 8.8', subtitle: 'Giảm đến 50%', bg: 'from-red-500 to-orange-500', name: 'iPhone 15 Pro Max' },
+  { id: 5, title: 'Xiaomi 14 Pro', subtitle: 'Camera Leica đỉnh cao', bg: 'from-orange-500 to-red-500', name: 'Xiaomi 14 Pro' },
 ]
 
 const sidebarBanners = [
@@ -35,41 +36,41 @@ const categories = [
 ]
 
 const flashSaleProducts = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 27990000, originalPrice: 34990000, sold: 234, image: '/api/placeholder/200/200', brand: 'Apple' },
-  { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 23990000, originalPrice: 31990000, sold: 156, image: '/api/placeholder/200/200', brand: 'Samsung' },
-  { id: 3, name: 'MacBook Air M2 13"', price: 22990000, originalPrice: 29990000, sold: 89, image: '/api/placeholder/200/200', brand: 'Apple' },
-  { id: 4, name: 'AirPods Pro 2 USB-C', price: 5490000, originalPrice: 7990000, sold: 567, image: '/api/placeholder/200/200', brand: 'Apple' },
-  { id: 5, name: 'Xiaomi 14 Pro', price: 14990000, originalPrice: 21990000, sold: 78, image: '/api/placeholder/200/200', brand: 'Xiaomi' },
-  { id: 6, name: 'OPPO Find X7 Pro', price: 13990000, originalPrice: 18990000, sold: 45, image: '/api/placeholder/200/200', brand: 'OPPO' },
-  { id: 7, name: 'iPad Pro 11" M2', price: 21990000, originalPrice: 29990000, sold: 67, image: '/api/placeholder/200/200', brand: 'Apple' },
-  { id: 8, name: 'Samsung Galaxy Watch 6', price: 6990000, originalPrice: 11990000, sold: 123, image: '/api/placeholder/200/200', brand: 'Samsung' },
+  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 27990000, originalPrice: 34990000, sold: 234, image: '', brand: 'Apple' },
+  { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 23990000, originalPrice: 31990000, sold: 156, image: '', brand: 'Samsung' },
+  { id: 3, name: 'MacBook Air M2 13 inch', price: 22990000, originalPrice: 29990000, sold: 89, image: '', brand: 'Apple' },
+  { id: 4, name: 'AirPods Pro 2 USB-C', price: 5490000, originalPrice: 7990000, sold: 567, image: '', brand: 'Apple' },
+  { id: 5, name: 'Xiaomi 14 Pro', price: 14990000, originalPrice: 21990000, sold: 78, image: '', brand: 'Xiaomi' },
+  { id: 6, name: 'OPPO Find X7 Pro', price: 13990000, originalPrice: 18990000, sold: 45, image: '', brand: 'OPPO' },
+  { id: 7, name: 'iPad Pro 11 inch M2', price: 21990000, originalPrice: 29990000, sold: 67, image: '', brand: 'Apple' },
+  { id: 8, name: 'Samsung Galaxy Watch 6', price: 6990000, originalPrice: 11990000, sold: 123, image: '', brand: 'Samsung' },
 ]
 
 const featuredProducts = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 32990000, originalPrice: 34990000, rating: 4.8, reviews: 1245, image: '/api/placeholder/300/300', badge: 'Giảm 2TR', sold: 234, brand: 'Apple' },
-  { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 28990000, originalPrice: 31990000, rating: 4.7, reviews: 892, image: '/api/placeholder/300/300', badge: '', sold: 189, brand: 'Samsung' },
-  { id: 3, name: 'MacBook Pro 14" M3', price: 45990000, originalPrice: 49990000, rating: 4.9, reviews: 567, image: '/api/placeholder/300/300', badge: 'Mới', sold: 67, brand: 'Apple' },
-  { id: 4, name: 'AirPods Pro 2', price: 6990000, originalPrice: 7990000, rating: 4.9, reviews: 3456, image: '/api/placeholder/300/300', badge: 'Bán chạy', sold: 456, brand: 'Apple' },
-  { id: 5, name: 'iPad Pro 11" M2', price: 27990000, originalPrice: 29990000, rating: 4.8, reviews: 789, image: '/api/placeholder/300/300', badge: '', sold: 89, brand: 'Apple' },
-  { id: 6, name: 'Samsung Galaxy Watch 6', price: 8990000, originalPrice: 11990000, rating: 4.6, reviews: 456, image: '/api/placeholder/300/300', badge: 'Giảm 25%', sold: 123, brand: 'Samsung' },
-  { id: 7, name: 'Xiaomi 14 Pro', price: 18990000, originalPrice: 21990000, rating: 4.6, reviews: 567, image: '/api/placeholder/300/300', badge: '', sold: 78, brand: 'Xiaomi' },
-  { id: 8, name: 'OPPO Find X7 Pro', price: 15990000, originalPrice: 17990000, rating: 4.5, reviews: 234, image: '/api/placeholder/300/300', badge: 'New', sold: 45, brand: 'OPPO' },
-  { id: 9, name: 'Vivo X100 Pro', price: 16990000, originalPrice: 18990000, rating: 4.7, reviews: 178, image: '/api/placeholder/300/300', badge: '', sold: 34, brand: 'vivo' },
-  { id: 10, name: 'Realme GT5 Pro', price: 12990000, originalPrice: 14990000, rating: 4.5, reviews: 345, image: '/api/placeholder/300/300', badge: '', sold: 89, brand: 'Realme' },
+  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 32990000, originalPrice: 34990000, rating: 4.8, reviews: 1245, image: '', badge: 'Giảm 2TR', sold: 234, brand: 'Apple' },
+  { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 28990000, originalPrice: 31990000, rating: 4.7, reviews: 892, image: '', badge: '', sold: 189, brand: 'Samsung' },
+  { id: 3, name: 'MacBook Pro 14 M3', price: 45990000, originalPrice: 49990000, rating: 4.9, reviews: 567, image: '', badge: 'Mới', sold: 67, brand: 'Apple' },
+  { id: 4, name: 'AirPods Pro 2', price: 6990000, originalPrice: 7990000, rating: 4.9, reviews: 3456, image: '', badge: 'Bán chạy', sold: 456, brand: 'Apple' },
+  { id: 5, name: 'iPad Pro 11 inch M2', price: 27990000, originalPrice: 29990000, rating: 4.8, reviews: 789, image: '', badge: '', sold: 89, brand: 'Apple' },
+  { id: 6, name: 'Samsung Galaxy Watch 6', price: 8990000, originalPrice: 11990000, rating: 4.6, reviews: 456, image: '', badge: 'Giảm 25%', sold: 123, brand: 'Samsung' },
+  { id: 7, name: 'Xiaomi 14 Pro', price: 18990000, originalPrice: 21990000, rating: 4.6, reviews: 567, image: '', badge: '', sold: 78, brand: 'Xiaomi' },
+  { id: 8, name: 'OPPO Find X7 Pro', price: 15990000, originalPrice: 17990000, rating: 4.5, reviews: 234, image: '', badge: 'New', sold: 45, brand: 'OPPO' },
+  { id: 9, name: 'vivo X100 Pro', price: 16990000, originalPrice: 18990000, rating: 4.7, reviews: 178, image: '', badge: '', sold: 34, brand: 'vivo' },
+  { id: 10, name: 'Realme GT5 Pro', price: 12990000, originalPrice: 14990000, rating: 4.5, reviews: 345, image: '', badge: '', sold: 89, brand: 'Realme' },
 ]
 
 const phoneProducts = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 32990000, originalPrice: 34990000, rating: 4.8, reviews: 1245, image: '/api/placeholder/300/300', badge: 'Hot', brand: 'Apple' },
-  { id: 2, name: 'iPhone 15 Plus 128GB', price: 22990000, originalPrice: 24990000, rating: 4.7, reviews: 567, image: '/api/placeholder/300/300', badge: '', brand: 'Apple' },
-  { id: 3, name: 'iPhone 15 128GB', price: 19990000, originalPrice: 21990000, rating: 4.8, reviews: 2103, image: '/api/placeholder/300/300', badge: '', brand: 'Apple' },
-  { id: 4, name: 'iPhone 14 128GB', price: 15990000, originalPrice: 17990000, rating: 4.6, reviews: 3456, image: '/api/placeholder/300/300', badge: '', brand: 'Apple' },
+  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 32990000, originalPrice: 34990000, rating: 4.8, reviews: 1245, image: '', badge: 'Hot', brand: 'Apple' },
+  { id: 2, name: 'iPhone 15 Plus 128GB', price: 22990000, originalPrice: 24990000, rating: 4.7, reviews: 567, image: '', badge: '', brand: 'Apple' },
+  { id: 3, name: 'iPhone 15 128GB', price: 19990000, originalPrice: 21990000, rating: 4.8, reviews: 2103, image: '', badge: '', brand: 'Apple' },
+  { id: 4, name: 'iPhone 14 128GB', price: 15990000, originalPrice: 17990000, rating: 4.6, reviews: 3456, image: '', badge: '', brand: 'Apple' },
 ]
 
 const laptopProducts = [
-  { id: 9, name: 'MacBook Pro 14" M3', price: 45990000, originalPrice: 49990000, rating: 4.9, reviews: 567, image: '/api/placeholder/300/300', badge: 'Mới', brand: 'Apple' },
-  { id: 10, name: 'MacBook Air M2 13"', price: 26990000, originalPrice: 29990000, rating: 4.8, reviews: 432, image: '/api/placeholder/300/300', badge: '', brand: 'Apple' },
-  { id: 11, name: 'Dell XPS 13 Plus', price: 38990000, originalPrice: 41990000, rating: 4.7, reviews: 234, image: '/api/placeholder/300/300', badge: '', brand: 'Dell' },
-  { id: 12, name: 'ASUS ROG Strix G16', price: 29990000, originalPrice: 32990000, rating: 4.8, reviews: 156, image: '/api/placeholder/300/300', badge: 'Hot', brand: 'ASUS' },
+  { id: 9, name: 'MacBook Pro 14 M3', price: 45990000, originalPrice: 49990000, rating: 4.9, reviews: 567, image: '', badge: 'Mới', brand: 'Apple' },
+  { id: 10, name: 'MacBook Air M2 13 inch', price: 26990000, originalPrice: 29990000, rating: 4.8, reviews: 432, image: '', badge: '', brand: 'Apple' },
+  { id: 11, name: 'Dell XPS 13 Plus', price: 38990000, originalPrice: 41990000, rating: 4.7, reviews: 234, image: '', badge: '', brand: 'Dell' },
+  { id: 12, name: 'ASUS ROG Strix G16', price: 29990000, originalPrice: 32990000, rating: 4.8, reviews: 156, image: '', badge: 'Hot', brand: 'ASUS' },
 ]
 
 const brands = ['Apple', 'Samsung', 'Xiaomi', 'OPPO', 'vivo', 'Realme', 'Nokia', 'Tecno', 'ASUS', 'Dell', 'HP', 'Lenovo']
@@ -336,28 +337,37 @@ export default function HomePage() {
           <div className="lg:col-span-2">
             <div className="relative rounded-lg overflow-hidden h-[300px] sm:h-[350px]">
               <div 
-                className="flex transition-transform duration-500 h-full"
+                className="flex transition-transform duration-700 ease-out h-full"
                 style={{ transform: `translateX(-${currentBanner * 100}%)` }}
               >
-                {banners.map((banner) => (
+                {banners.map((banner, idx) => (
                   <div
                     key={banner.id}
-                    className={`w-full h-full shrink-0 ${banner.bg} flex items-center px-8 sm:px-16`}
+                    className={`w-full h-full shrink-0 bg-gradient-to-r ${banner.bg} flex items-center px-8 sm:px-16 relative overflow-hidden`}
                   >
-                    <div className="flex-1">
-                      <span className="inline-block bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded mb-3">
-                        HOT
+                    {/* Animated background shapes */}
+                    <div className="absolute top-10 right-20 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse" />
+                    <div className="absolute bottom-10 left-20 w-24 h-24 bg-yellow-400/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
+                    
+                    <div className="flex-1 relative z-10">
+                      <span className="inline-flex items-center gap-1 bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded mb-3 animate-bounce">
+                        <Zap className="w-3 h-3" /> HOT
                       </span>
-                      <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2">{banner.title}</h2>
+                      <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 animate-fade-in">{banner.title}</h2>
                       <p className="text-lg sm:text-xl text-white/90 mb-4">{banner.subtitle}</p>
                       <Link href="/san-pham">
-                        <button className="bg-white text-[#363636] px-6 py-2.5 rounded-md font-semibold hover:bg-gray-100 transition-colors flex items-center gap-2">
+                        <button className="group bg-white text-[#363636] px-6 py-2.5 rounded-md font-semibold hover:bg-gray-100 transition-all flex items-center gap-2 hover:scale-105 hover:shadow-xl">
                           Mua ngay
-                          <ArrowRight className="w-4 h-4" />
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </button>
                       </Link>
                     </div>
-                    <img src={banner.image} alt="" className="hidden sm:block w-80 h-56 object-contain" />
+                    <div className="hidden sm:block w-80 h-56 relative">
+                      <div className="absolute inset-0 bg-white/10 rounded-2xl blur-xl animate-pulse" />
+                      <div className="relative animate-float h-full">
+                        <ProductImage name={banner.name} className="w-full h-full drop-shadow-2xl" />
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -450,17 +460,19 @@ export default function HomePage() {
                   <Link
                     key={product.id}
                     href={`/san-pham/${product.id}`}
-                    className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow group"
+                    className="bg-white rounded-lg overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1 group shine"
                     onClick={() => addToRecentlyViewed(product)}
                   >
-                    <div className="relative">
-                      <img src={product.image} alt={product.name} className="w-full aspect-square object-cover" />
-                      <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-[#ca3838] text-white text-[10px] font-bold rounded">
+                    <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                      <div className="zoom-img p-2">
+                        <ProductImage name={product.name} className="w-full aspect-square" />
+                      </div>
+                      <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-[#ca3838] text-white text-[10px] font-bold rounded animate-pulse">
                         -{discount}%
                       </span>
                       <button
                         onClick={(e) => { e.preventDefault(); toggleWishlist(product) }}
-                        className="absolute top-1 right-1 p-1 bg-white/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-1 right-1 p-1 bg-white/90 rounded-full opacity-0 group-hover:opacity-100 transition-all hover:scale-125"
                       >
                         <Heart className={`w-3 h-3 ${isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
                       </button>
@@ -549,11 +561,41 @@ export default function HomePage() {
               <Link
                 key={idx}
                 href={`/san-pham?thuong-hieu=${brand.toLowerCase()}`}
-                className="border border-gray-200 rounded-lg p-3 flex items-center justify-center hover:border-[#ca3838] hover:text-[#ca3838] transition-colors text-sm font-medium"
+                className="group relative overflow-hidden border border-gray-200 rounded-lg p-3 flex flex-col items-center justify-center hover:border-[#ca3838] hover:shadow-lg transition-all hover:-translate-y-1"
               >
-                {brand}
+                <span className="font-bold text-sm text-[#363636] group-hover:text-[#ca3838] transition-colors">{brand}</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="max-w-7xl mx-auto px-4 pb-4">
+        <div className="bg-gradient-to-r from-[#ca3838] via-orange-500 to-[#ca3838] rounded-2xl p-8 sm:p-12 text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 animate-pulse" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-yellow-400/20 rounded-full translate-y-1/2 -translate-x-1/2 animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="relative grid md:grid-cols-2 gap-6 items-center">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <Award className="w-6 h-6 text-yellow-300" />
+                <span className="text-sm font-medium text-yellow-300">ƯU ĐÃI ĐẶC BIỆT</span>
+              </div>
+              <h2 className="text-3xl font-bold mb-3">Đăng ký nhận tin khuyến mãi</h2>
+              <p className="text-white/90">Nhận ngay voucher 500.000đ cho đơn hàng đầu tiên và cập nhật các chương trình giảm giá hot nhất!</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                placeholder="Nhập email của bạn..."
+                className="flex-1 px-5 py-3 rounded-md text-[#363636] focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              />
+              <button className="px-6 py-3 bg-[#363636] hover:bg-black rounded-md font-semibold transition-all hover:scale-105 flex items-center justify-center gap-2 whitespace-nowrap">
+                <Sparkles className="w-4 h-4" />
+                Đăng ký
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -694,14 +736,12 @@ function ProductSection({ title, subtitle, products, viewAllHref, bgColor = '', 
                 className="border border-gray-100 rounded-lg overflow-hidden hover:shadow-lg transition-shadow group relative"
               >
                 <Link href={`/san-pham/${product.id}`} onClick={() => onProductClick?.(product)}>
-                  <div className="relative bg-gray-50">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full aspect-square object-cover"
-                    />
+                  <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden group">
+                    <div className="zoom-img p-2">
+                      <ProductImage name={product.name} className="w-full aspect-square" />
+                    </div>
                     {product.badge && (
-                      <span className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-bold rounded ${
+                      <span className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-bold rounded shadow ${
                         product.badge === 'Hot' || product.badge === 'Giảm 2TR' ? 'bg-[#ca3838] text-white' :
                         product.badge === 'Mới' || product.badge === 'New' ? 'bg-[#2563eb] text-white' :
                         product.badge === 'Bán chạy' ? 'bg-[#16a34a] text-white' :
@@ -711,7 +751,7 @@ function ProductSection({ title, subtitle, products, viewAllHref, bgColor = '', 
                       </span>
                     )}
                     {discount > 0 && (
-                      <span className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-bold bg-[#ca3838] text-white rounded">
+                      <span className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-bold bg-[#ca3838] text-white rounded shadow">
                         -{discount}%
                       </span>
                     )}
