@@ -77,7 +77,7 @@ export function ProductCard({
     >
       {/* Image container */}
       <div className="relative aspect-square bg-white overflow-hidden">
-        <ProductImage name={product.name} />
+        <ProductImage name={product.name} directSrc={product.image} />
 
         {/* Discount badge */}
         {discount > 0 && (

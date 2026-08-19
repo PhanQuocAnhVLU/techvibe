@@ -210,8 +210,9 @@ function getProductImageUrls(name: string): string[] {
   return []
 }
 
-export function ProductImage({ name, className = '' }: { name: string; className?: string }) {
-  const [urls] = useState(() => getProductImageUrls(name))
+export function ProductImage({ name, className = '', directSrc }: { name: string; className?: string; directSrc?: string }) {
+  const [fallbackUrls] = useState(() => getProductImageUrls(name))
+  const urls = directSrc ? [directSrc, ...fallbackUrls] : fallbackUrls
   const [currentIndex, setCurrentIndex] = useState(0)
   const [allFailed, setAllFailed] = useState(false)
 
