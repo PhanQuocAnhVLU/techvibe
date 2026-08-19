@@ -1,6 +1,6 @@
 import { createServerSupabase } from '@/lib/supabase-server'
 import Link from 'next/link'
-import { Package, Plus, Search, Edit, Trash2 } from 'lucide-react'
+import { Package, Plus, Search, Edit, Trash2, Eye } from 'lucide-react'
 import { ProductDeleteButton } from './product-delete-button'
 
 export const dynamic = 'force-dynamic'
@@ -101,9 +101,12 @@ export default async function AdminProductsPage({ searchParams }: { searchParams
                     </td>
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 hover:bg-blue-50 rounded-lg" title="Sửa">
+                        <Link href={`/san-pham/${p.slug || p.id}`} target="_blank" className="p-1.5 hover:bg-neutral-100 rounded-lg" title="Xem">
+                          <Eye className="w-4 h-4 text-neutral-500" />
+                        </Link>
+                        <Link href={`/admin/san-pham/${p.id}`} className="p-1.5 hover:bg-blue-50 rounded-lg" title="Sửa">
                           <Edit className="w-4 h-4 text-blue-500" />
-                        </button>
+                        </Link>
                         <ProductDeleteButton productId={p.id} />
                       </div>
                     </td>

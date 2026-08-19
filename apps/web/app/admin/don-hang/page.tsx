@@ -1,7 +1,8 @@
 import { createServerSupabase } from '@/lib/supabase-server'
 import Link from 'next/link'
-import { ShoppingCart, Search, Filter, Download, Eye } from 'lucide-react'
+import { ShoppingCart, Search, Filter, Eye } from 'lucide-react'
 import { OrderStatusSelect } from './order-status-select'
+import { OrdersExportButton } from '@/components/admin/orders-export-button'
 
 export const dynamic = 'force-dynamic'
 
@@ -116,10 +117,7 @@ export default async function AdminOrdersPage({ searchParams }: { searchParams: 
             <Filter className="w-4 h-4" />
             Lọc
           </button>
-          <button className="flex items-center gap-2 px-3 py-2 border border-neutral-200 rounded-lg hover:bg-neutral-50 text-sm">
-            <Download className="w-4 h-4" />
-            Xuất Excel
-          </button>
+          <OrdersExportButton />
         </div>
 
         {/* Table */}

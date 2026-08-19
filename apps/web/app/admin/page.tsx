@@ -1,16 +1,17 @@
 import { createServerSupabase } from '@/lib/supabase-server'
-import { DollarSign, ShoppingCart, Users, Package, TrendingUp, ArrowUpRight, ArrowDownRight } from 'lucide-react'
 import Link from 'next/link'
+import { DollarSign, ShoppingCart, Users, Package, ArrowUpRight, ArrowDownRight, TrendingUp } from 'lucide-react'
+import { RevenueChart } from '@/components/admin/revenue-chart'
+import { CategoryPieChart } from '@/components/admin/category-pie-chart'
 
 export const dynamic = 'force-dynamic'
 
 async function getStats() {
   const supabase = await createServerSupabase()
 
-  const [orders, products, customers, profiles, recentOrders] = await Promise.all([
+  const [orders, products, profiles, recentOrders] = await Promise.all([
     supabase.from('orders').select('total, created_at, status', { count: 'exact' }),
     supabase.from('products').select('id', { count: 'exact', head: true }).eq('is_active', true),
-    supabase.from('orders').select('user_id', { count: 'exact', head: true }),
     supabase.from('profiles').select('id', { count: 'exact', head: true }),
     supabase.from('orders').select('*, items:order_items(*)').order('created_at', { ascending: false }).limit(5),
   ])
@@ -18,6 +19,7 @@ async function getStats() {
   const allOrders = orders.data ?? []
   const totalRevenue = allOrders.reduce((sum, o: any) => sum + (o.total || 0), 0)
   const pendingOrders = allOrders.filter((o: any) => o.status === 'pending').length
+  const completedOrders = allOrders.filter((o: any) => o.status === 'completed' || o.status === 'delivered').length
 
   // Top products
   const { data: topProducts } = await supabase
@@ -27,18 +29,65 @@ async function getStats() {
     .order('sold_count', { ascending: false })
     .limit(5)
 
+  // Revenue by day (last 30 days)
+  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+  const { data: orders30d } = await supabase
+    .from('orders')
+    .select('total, created_at')
+    .gte('created_at', thirtyDaysAgo)
+
+  const revenueByDay: Record<string, number> = {}
+  ;(orders30d ?? []).forEach((o: any) => {
+    const date = new Date(o.created_at).toISOString().split('T')[0]
+    revenueByDay[date] = (revenueByDay[date] || 0) + (o.total || 0)
+  })
+
+  // Fill missing days
+  const chartData: { date: string; revenue: number }[] = []
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(Date.now() - i * 24 * 60 * 60 * 1000)
+    const dateStr = d.toISOString().split('T')[0]
+    chartData.push({
+      date: `${d.getDate()}/${d.getMonth() + 1}`,
+      revenue: revenueByDay[dateStr] || 0,
+    })
+  }
+
+  // Category breakdown
+  const { data: productsByCategory } = await supabase
+    .from('products')
+    .select(`category_id, category:categories(name)`)
+    .eq('is_active', true)
+
+  const categoryStats: Record<string, number> = {}
+  ;(productsByCategory ?? []).forEach((p: any) => {
+    const name = p.category?.name || 'Khác'
+    categoryStats[name] = (categoryStats[name] || 0) + 1
+  })
+
+  const categoryData = Object.entries(categoryStats)
+    .map(([name, value]) => ({ name, value }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 6)
+
   return {
     totalRevenue,
     totalOrders: allOrders.length,
     totalProducts: products.count ?? 0,
-    totalCustomers: profiles.count ?? customers.count ?? 0,
+    totalCustomers: profiles.count ?? 0,
     pendingOrders,
+    completedOrders,
     recentOrders: recentOrders.data ?? [],
     topProducts: topProducts ?? [],
+    chartData,
+    categoryData,
   }
 }
 
 function formatVND(n: number) {
+  if (n >= 1_000_000_000) return (n / 1_000_000_000).toFixed(1) + 'B'
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(0) + 'M'
+  if (n >= 1_000) return (n / 1_000).toFixed(0) + 'K'
   return new Intl.NumberFormat('vi-VN').format(n) + 'đ'
 }
 
@@ -53,7 +102,7 @@ export default async function AdminDashboard() {
       color: 'from-emerald-500 to-emerald-600',
       bgColor: 'bg-emerald-50',
       iconColor: 'text-emerald-600',
-      trend: '+12.5%',
+      trend: `${stats.completedOrders} đơn HT`,
       trendUp: true,
     },
     {
@@ -63,7 +112,7 @@ export default async function AdminDashboard() {
       color: 'from-blue-500 to-blue-600',
       bgColor: 'bg-blue-50',
       iconColor: 'text-blue-600',
-      trend: '+8.2%',
+      trend: `${stats.pendingOrders} chờ xử lý`,
       trendUp: true,
     },
     {
@@ -73,7 +122,7 @@ export default async function AdminDashboard() {
       color: 'from-purple-500 to-purple-600',
       bgColor: 'bg-purple-50',
       iconColor: 'text-purple-600',
-      trend: '19 active',
+      trend: 'Đang bán',
       trendUp: true,
     },
     {
@@ -83,7 +132,7 @@ export default async function AdminDashboard() {
       color: 'from-orange-500 to-orange-600',
       bgColor: 'bg-orange-50',
       iconColor: 'text-orange-600',
-      trend: '+5.3%',
+      trend: 'Đã đăng ký',
       trendUp: true,
     },
   ]
@@ -93,11 +142,17 @@ export default async function AdminDashboard() {
       {/* Welcome */}
       <div className="bg-gradient-to-r from-[#1a1a2e] to-[#16213e] rounded-2xl p-6 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-        <div className="relative z-10">
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">Chào mừng quay lại, Admin 👋</h2>
-          <p className="text-white/70 text-sm md:text-base">
-            Đây là tổng quan về cửa hàng TechVibe của bạn hôm nay.
-          </p>
+        <div className="relative z-10 flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">Chào mừng quay lại, Admin 👋</h2>
+            <p className="text-white/70 text-sm md:text-base">
+              Tổng quan cửa hàng TechVibe • {new Date().toLocaleDateString('vi-VN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+            </p>
+          </div>
+          <Link href="/admin/bao-cao" className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium backdrop-blur transition-colors flex items-center gap-2">
+            <TrendingUp className="w-4 h-4" />
+            Xem báo cáo chi tiết
+          </Link>
         </div>
       </div>
 
@@ -118,6 +173,29 @@ export default async function AdminDashboard() {
             <p className="text-sm text-neutral-500 mt-1">{s.label}</p>
           </div>
         ))}
+      </div>
+
+      {/* Charts */}
+      <div className="grid lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm overflow-hidden">
+          <div className="p-5 border-b border-neutral-100">
+            <h3 className="font-bold text-neutral-900">Doanh thu 30 ngày qua</h3>
+            <p className="text-xs text-neutral-500">Biểu đồ doanh thu theo ngày</p>
+          </div>
+          <div className="p-5">
+            <RevenueChart data={stats.chartData} />
+          </div>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+          <div className="p-5 border-b border-neutral-100">
+            <h3 className="font-bold text-neutral-900">Phân bố danh mục</h3>
+            <p className="text-xs text-neutral-500">Số sản phẩm theo danh mục</p>
+          </div>
+          <div className="p-5">
+            <CategoryPieChart data={stats.categoryData} />
+          </div>
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -193,7 +271,7 @@ export default async function AdminDashboard() {
       <div className="bg-white rounded-2xl shadow-sm p-5">
         <h3 className="font-bold text-neutral-900 mb-4">Thao tác nhanh</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <QuickAction href="/admin/san-pham" label="Thêm sản phẩm" icon={Package} color="bg-blue-500" />
+          <QuickAction href="/admin/san-pham/new" label="Thêm sản phẩm" icon={Package} color="bg-blue-500" />
           <QuickAction href="/admin/don-hang" label="Xem đơn hàng" icon={ShoppingCart} color="bg-green-500" />
           <QuickAction href="/admin/banner" label="Quản lý banner" icon={TrendingUp} color="bg-purple-500" />
           <QuickAction href="/admin/tin-tuc" label="Đăng bài viết" icon={Users} color="bg-orange-500" />
