@@ -75,7 +75,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               onClick={() => setLightboxOpen(true)}
             >
               <div className="absolute inset-0 flex items-center justify-center">
-                <SmartImage name={product.name} brand={product.brand} aspectRatio="square" className="w-full h-full" />
+                <img src={product.images[selectedImage]} alt={product.name} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" loading="eager" />
               </div>
               {discount > 0 && (
                 <span className="absolute top-4 left-4 px-3 py-1.5 text-sm font-bold bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-full shadow-lg">
@@ -104,11 +104,11 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)}
-                  className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all hover:scale-105 bg-white ${
+                  className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all hover:scale-105 bg-white p-1 ${
                     selectedImage === idx ? 'border-[#ca3838] shadow-lg ring-2 ring-[#ca3838]/20' : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
-                  <SmartImage name={product.name} brand={product.brand} aspectRatio="square" className="w-full h-full" />
+                  <img src={img} alt={`${product.name} - ${idx + 1}`} className="w-full h-full object-contain" />
                 </button>
               ))}
             </div>
@@ -309,8 +309,19 @@ export function ProductDetailClient({ product }: { product: Product }) {
           </button>
           <div className="max-w-3xl w-full" onClick={e => e.stopPropagation()}>
             <div className="bg-white rounded-2xl p-12 flex items-center justify-center">
-              <SmartImage name={product.name} brand={product.brand} aspectRatio="square" className="max-h-[70vh]" />
+              <img src={product.images[selectedImage]} alt={product.name} className="max-h-[70vh] max-w-full object-contain" />
             </div>
+            {product.images.length > 1 && (
+              <div className="flex justify-center gap-2 mt-4">
+                {product.images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedImage(idx)}
+                    className={`w-3 h-3 rounded-full transition-all ${selectedImage === idx ? 'bg-white scale-125' : 'bg-white/40 hover:bg-white/70'}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

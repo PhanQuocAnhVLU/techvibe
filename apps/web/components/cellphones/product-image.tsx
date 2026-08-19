@@ -2,93 +2,179 @@
 
 import { useState, useEffect } from 'react'
 
-// Comprehensive product image map - covers all products used in the demo
+// CellphoneS CDN URL pattern: cdn2.cellphones.com.vn/x/media/catalog/product/{a}/{a}/{slug}_{n}.png
+// Where {a} = first letter of slug
 const PRODUCT_IMAGES: Record<string, string[]> = {
-  // iPhone series
-  'iphone-15-pro-max': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-pro-max_3.png',
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-pro-max-titan-1.png',
-  ],
+  // iPhone
   'iphone-15-pro-max-256gb': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-pro-max_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-pro-max-256gb_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-pro-max-256gb_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-pro-max-256gb_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-pro-max-256gb_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-pro-max-256gb_5.png',
+  ],
+  'iphone-15-pro-max': [
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-pro-max-256gb_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-pro-max-256gb_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-pro-max-256gb_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-pro-max-256gb_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-pro-max-256gb_5.png',
+  ],
+  'iphone-15-plus-128gb': [
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-plus-128gb_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-plus-128gb_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-plus-128gb_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-plus-128gb_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-plus-128gb_5.png',
   ],
   'iphone-15-plus': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-plus_1.png',
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-plus-128gb_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-plus-128gb_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-plus-128gb_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-plus-128gb_3.png',
+  ],
+  'iphone-15-128gb': [
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-128gb_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-128gb_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-128gb_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-128gb_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-128gb_5.png',
   ],
   'iphone-15': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15_2.png',
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-15-128gb_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-128gb_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-128gb_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-15-128gb_3.png',
+  ],
+  'iphone-14-128gb': [
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-14-128gb_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-14-128gb_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-14-128gb_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-14-128gb_4.png',
   ],
   'iphone-14': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-14_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-14-128gb_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/iphone-14-128gb_2.png',
   ],
 
   // Samsung
   'samsung-galaxy-s24-ultra': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/a/samsung-galaxy-s24-ultra_2.png',
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/a/samsung-galaxy-s24-ultra_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-s24-ultra_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-s24-ultra_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-s24-ultra_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-s24-ultra_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-s24-ultra_5.png',
   ],
-  'samsung-galaxy-a55': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/a/samsung-galaxy-a55-5g_1.png',
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/a/samsung-galaxy-a55_1.png',
-  ],
-  'samsung-galaxy-s24': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/a/samsung-galaxy-s24_1.png',
+  'samsung-galaxy-a55-5g': [
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-a55-5g_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-a55-5g_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-a55-5g_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-a55-5g_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-a55-5g_5.png',
   ],
   'samsung-galaxy-watch-6': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/a/samsung-galaxy-watch6_1__1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-watch6_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-watch6_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-watch6_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-watch6_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/s/s/samsung-galaxy-watch6_5.png',
   ],
 
-  // MacBook / Laptop
+  // MacBook
   'macbook-pro-14-m3': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/a/macbook-pro-14-m3_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-pro-14-inch-m3_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-pro-14-inch-m3_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-pro-14-inch-m3_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-pro-14-inch-m3_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-pro-14-inch-m3_5.png',
   ],
-  'macbook-air-m2': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/a/macbook-air-m2_2.png',
+  'macbook-air-m2-13-inch': [
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-air-m2-13-inch_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-air-m2-13-inch_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-air-m2-13-inch_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-air-m2-13-inch_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-air-m2-13-inch_5.png',
   ],
   'macbook-air-m3': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/a/macbook-air-m3_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-air-m3-13-inch_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-air-m3-13-inch_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-air-m3-13-inch_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-air-m3-13-inch_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/m/m/macbook-air-m3-13-inch_5.png',
   ],
+
+  // Dell
   'dell-xps-13-plus': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/d/e/dell-xps-13-plus_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/d/d/dell-xps-13-plus_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/d/d/dell-xps-13-plus_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/d/d/dell-xps-13-plus_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/d/d/dell-xps-13-plus_4.png',
   ],
+
+  // ASUS
   'asus-rog-strix-g16': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/s/asus-rog-strix-g16_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/a/asus-rog-strix-g16_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/a/asus-rog-strix-g16_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/a/asus-rog-strix-g16_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/a/asus-rog-strix-g16_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/a/asus-rog-strix-g16_5.png',
   ],
 
   // AirPods
-  'airpods-pro-2': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/i/airpods-pro-2-usb-c_1.png',
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/i/airpods-pro-2_1.png',
+  'airpods-pro-2-usb-c': [
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/a/airpods-pro-2-usb-c_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/a/airpods-pro-2-usb-c_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/a/airpods-pro-2-usb-c_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/a/airpods-pro-2-usb-c_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/a/a/airpods-pro-2-usb-c_5.png',
   ],
 
   // iPad
   'ipad-pro-11-inch-m2': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/ipad-pro-11-inch-m2_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/ipad-pro-11-inch-m2_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/ipad-pro-11-inch-m2_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/ipad-pro-11-inch-m2_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/i/ipad-pro-11-inch-m2_4.png',
   ],
 
   // Xiaomi
   'xiaomi-14-pro': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/i/xiaomi-14-pro_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/x/xiaomi-14-pro_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/x/xiaomi-14-pro_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/x/xiaomi-14-pro_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/x/xiaomi-14-pro_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/x/xiaomi-14-pro_5.png',
   ],
   'xiaomi-14': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/i/xiaomi-14_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/x/xiaomi-14_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/x/xiaomi-14_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/x/xiaomi-14_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/x/xiaomi-14_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/x/x/xiaomi-14_5.png',
   ],
 
   // OPPO
   'oppo-find-x7-pro': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/o/p/oppo-find-x7-pro_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/o/o/oppo-find-x7-pro_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/o/o/oppo-find-x7-pro_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/o/o/oppo-find-x7-pro_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/o/o/oppo-find-x7-pro_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/o/o/oppo-find-x7-pro_5.png',
   ],
 
   // vivo
   'vivo-x100-pro': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/v/i/vivo-x100-pro_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/v/v/vivo-x100-pro_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/v/v/vivo-x100-pro_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/v/v/vivo-x100-pro_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/v/v/vivo-x100-pro_4.png',
   ],
 
   // Realme
   'realme-gt5-pro': [
-    'https://cdn2.cellphones.com.vn/x/media/catalog/product/r/e/realme-gt5-pro_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/r/r/realme-gt5-pro_1.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/r/r/realme-gt5-pro_2.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/r/r/realme-gt5-pro_3.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/r/r/realme-gt5-pro_4.png',
+    'https://cdn2.cellphones.com.vn/x/media/catalog/product/r/r/realme-gt5-pro_5.png',
   ],
 }
 
@@ -107,7 +193,7 @@ function getProductImageUrls(name: string): string[] {
     'iphone': PRODUCT_IMAGES['iphone-15'] || [],
     'samsung': PRODUCT_IMAGES['samsung-galaxy-s24-ultra'] || [],
     'macbook': PRODUCT_IMAGES['macbook-air-m3'] || [],
-    'airpods': PRODUCT_IMAGES['airpods-pro-2'] || [],
+    'airpods': PRODUCT_IMAGES['airpods-pro-2-usb-c'] || [],
     'ipad': PRODUCT_IMAGES['ipad-pro-11-inch-m2'] || [],
     'xiaomi': PRODUCT_IMAGES['xiaomi-14-pro'] || [],
     'oppo': PRODUCT_IMAGES['oppo-find-x7-pro'] || [],
