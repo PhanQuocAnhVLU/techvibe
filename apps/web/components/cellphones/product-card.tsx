@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Heart, Star } from 'lucide-react'
 
 interface Product {
-  id: number
+  id: number | string
   name: string
   brand?: string
   price: number
@@ -15,6 +15,7 @@ interface Product {
   reviews?: number
   sold?: number
   badge?: string
+  slug?: string
 }
 
 // Comprehensive product image map - covers all products used in the demo
@@ -292,7 +293,7 @@ export function ProductCard({
 
   return (
     <Link
-      href={`/san-pham/${product.id}`}
+      href={`/san-pham/${product.slug || product.id}`}
       className="shine-card group relative bg-white rounded-lg overflow-hidden hover:shadow-card-hover transition-all hover:-translate-y-1 flex flex-col h-full border border-neutral-100"
     >
       {/* Image container */}

@@ -7,19 +7,6 @@ import { ChevronRight } from 'lucide-react'
 import { ProductCard } from './product-card'
 import 'swiper/css'
 
-const flashSaleProducts = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 27990000, originalPrice: 34990000, sold: 234, brand: 'Apple' },
-  { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 23990000, originalPrice: 31990000, sold: 156, brand: 'Samsung' },
-  { id: 3, name: 'MacBook Air M2 13 inch', price: 22990000, originalPrice: 29990000, sold: 89, brand: 'Apple' },
-  { id: 4, name: 'AirPods Pro 2 USB-C', price: 5490000, originalPrice: 7990000, sold: 567, brand: 'Apple' },
-  { id: 5, name: 'Xiaomi 14 Pro', price: 14990000, originalPrice: 21990000, sold: 78, brand: 'Xiaomi' },
-  { id: 6, name: 'OPPO Find X7 Pro', price: 13990000, originalPrice: 18990000, sold: 45, brand: 'OPPO' },
-  { id: 7, name: 'iPad Pro 11 inch M2', price: 21990000, originalPrice: 29990000, sold: 67, brand: 'Apple' },
-  { id: 8, name: 'Samsung Galaxy Watch 6', price: 6990000, originalPrice: 11990000, sold: 123, brand: 'Samsung' },
-  { id: 9, name: 'Dell XPS 13 Plus', price: 38990000, originalPrice: 41990000, sold: 34, brand: 'Dell' },
-  { id: 10, name: 'ASUS ROG Strix G16', price: 29990000, originalPrice: 32990000, sold: 56, brand: 'ASUS' },
-]
-
 function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState({ hours: 23, minutes: 59, seconds: 59 })
 
@@ -54,7 +41,13 @@ function CountdownTimer() {
   )
 }
 
-export function FlashSale() {
+export function FlashSale({ products }: { products?: any[] }) {
+  const list = products && products.length > 0 ? products : []
+
+  if (list.length === 0) {
+    return null
+  }
+
   return (
     <section className="max-w-7xl mx-auto px-4 py-3">
       <div className="bg-gradient-to-r from-cps-red to-cps-red-light rounded-xl overflow-hidden shadow-md">
@@ -92,7 +85,7 @@ export function FlashSale() {
             }}
             className="!overflow-visible"
           >
-            {flashSaleProducts.map((product) => (
+            {list.map((product: any) => (
               <SwiperSlide key={product.id} className="!h-auto">
                 <ProductCard product={product} showSold />
               </SwiperSlide>

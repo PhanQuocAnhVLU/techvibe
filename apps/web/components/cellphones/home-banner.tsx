@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 import 'swiper/css'
@@ -20,7 +19,7 @@ const tabs = [
   { id: 'audio', label: 'Âm thanh' },
 ]
 
-const banners = [
+const fallbackBanners = [
   {
     id: 1,
     image: 'https://cdn2.cellphones.com.vn/x/media/catalog/product/b/a/banner-iphone-15-pro-max.png',
@@ -59,8 +58,21 @@ const banners = [
   },
 ]
 
-export function HomeBanner() {
+export function HomeBanner({ banners }: { banners?: any[] }) {
   const [activeTab, setActiveTab] = useState('all')
+
+  const list = banners && banners.length > 0
+    ? banners.map((b) => ({
+        id: b.id,
+        image: b.image_url,
+        mobile: b.mobile_image_url || b.image_url,
+        title: b.title,
+        subtitle: b.subtitle || '',
+        bg: b.bg_gradient || 'from-slate-900 via-gray-800 to-slate-900',
+        price: 'Xem ngay',
+        href: b.cta_href || '#',
+      }))
+    : fallbackBanners
 
   return (
     <div className="flex-1 min-w-0">
@@ -108,7 +120,7 @@ export function HomeBanner() {
           loop
           className="h-full"
         >
-          {banners.map((banner) => (
+          {list.map((banner: any) => (
             <SwiperSlide key={banner.id}>
               <div className={`w-full h-full bg-gradient-to-r ${banner.bg} relative overflow-hidden flex items-center`}>
                 <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />

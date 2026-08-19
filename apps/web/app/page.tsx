@@ -1,11 +1,8 @@
-﻿'use client'
-
-import { useState } from 'react'
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import {
   ChevronRight, Phone, Mail, MapPin, Clock,
-  Facebook, Youtube, Instagram, Send, Sparkles,
-  Award, TrendingUp, Package
+  Facebook, Youtube, Instagram, Send,
+  Award, Package
 } from 'lucide-react'
 import { AnnouncementBar } from '@/components/cellphones/announcement-bar'
 import { Header } from '@/components/cellphones/header'
@@ -16,42 +13,14 @@ import { FlashSale } from '@/components/cellphones/flash-sale'
 import { ProductSection } from '@/components/cellphones/product-section'
 import { ServiceStrip } from '@/components/cellphones/service-strip'
 import { BrandList } from '@/components/cellphones/brand-list'
-import { useApp } from '@/lib/app-context'
-
-const featuredProducts = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 32990000, originalPrice: 34990000, rating: 4.8, reviews: 1245, sold: 234, brand: 'Apple' },
-  { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 28990000, originalPrice: 31990000, rating: 4.7, reviews: 892, sold: 189, brand: 'Samsung' },
-  { id: 3, name: 'MacBook Pro 14 M3', price: 45990000, originalPrice: 49990000, rating: 4.9, reviews: 567, sold: 67, brand: 'Apple' },
-  { id: 4, name: 'AirPods Pro 2', price: 6990000, originalPrice: 7990000, rating: 4.9, reviews: 3456, sold: 456, brand: 'Apple' },
-  { id: 5, name: 'iPad Pro 11 inch M2', price: 27990000, originalPrice: 29990000, rating: 4.8, reviews: 789, sold: 89, brand: 'Apple' },
-  { id: 6, name: 'Samsung Galaxy Watch 6', price: 8990000, originalPrice: 11990000, rating: 4.6, reviews: 456, sold: 123, brand: 'Samsung' },
-  { id: 7, name: 'Xiaomi 14 Pro', price: 18990000, originalPrice: 21990000, rating: 4.6, reviews: 567, sold: 78, brand: 'Xiaomi' },
-  { id: 8, name: 'OPPO Find X7 Pro', price: 15990000, originalPrice: 17990000, rating: 4.5, reviews: 234, sold: 45, brand: 'OPPO' },
-  { id: 9, name: 'vivo X100 Pro', price: 16990000, originalPrice: 18990000, rating: 4.7, reviews: 178, sold: 34, brand: 'vivo' },
-  { id: 10, name: 'Realme GT5 Pro', price: 12990000, originalPrice: 14990000, rating: 4.5, reviews: 345, sold: 89, brand: 'Realme' },
-]
-
-const phoneProducts = [
-  { id: 1, name: 'iPhone 15 Pro Max 256GB', price: 32990000, originalPrice: 34990000, rating: 4.8, reviews: 1245, brand: 'Apple' },
-  { id: 11, name: 'iPhone 15 Plus 128GB', price: 22990000, originalPrice: 24990000, rating: 4.7, reviews: 567, brand: 'Apple' },
-  { id: 12, name: 'iPhone 15 128GB', price: 19990000, originalPrice: 21990000, rating: 4.8, reviews: 2103, brand: 'Apple' },
-  { id: 13, name: 'iPhone 14 128GB', price: 15990000, originalPrice: 17990000, rating: 4.6, reviews: 3456, brand: 'Apple' },
-  { id: 14, name: 'Samsung Galaxy A55 5G', price: 8490000, originalPrice: 9990000, rating: 4.5, reviews: 234, brand: 'Samsung' },
-]
-
-const laptopProducts = [
-  { id: 3, name: 'MacBook Pro 14 M3', price: 45990000, originalPrice: 49990000, rating: 4.9, reviews: 567, brand: 'Apple' },
-  { id: 15, name: 'MacBook Air M2 13 inch', price: 26990000, originalPrice: 29990000, rating: 4.8, reviews: 432, brand: 'Apple' },
-  { id: 16, name: 'Dell XPS 13 Plus', price: 38990000, originalPrice: 41990000, rating: 4.7, reviews: 234, brand: 'Dell' },
-  { id: 17, name: 'ASUS ROG Strix G16', price: 29990000, originalPrice: 32990000, rating: 4.8, reviews: 156, brand: 'ASUS' },
-  { id: 18, name: 'MacBook Air M3', price: 32990000, originalPrice: 39990000, rating: 4.9, reviews: 289, brand: 'Apple' },
-]
-
-const newsItems = [
-  { id: 1, title: 'iPhone 16 Pro lộ diện với thiết kế hoàn toàn mới', date: '16/08/2024', brand: 'Apple' },
-  { id: 2, title: 'Samsung Galaxy S25 Ultra sẽ có camera 200MP?', date: '15/08/2024', brand: 'Samsung' },
-  { id: 3, title: 'MacBook Air M4 ra mắt cuối năm nay', date: '14/08/2024', brand: 'Apple' },
-]
+import {
+  getFeaturedProducts,
+  getFlashSaleProducts,
+  getProductsByCategorySlug,
+  getBanners,
+  getNews,
+  getCategories,
+} from '@/lib/api/products'
 
 function NewsletterSection() {
   return (
@@ -83,7 +52,7 @@ function NewsletterSection() {
   )
 }
 
-function NewsSection() {
+function NewsSection({ items }: { items: { id: number; title: string; slug: string; brand: string | null; published_at: string; cover_emoji: string }[] }) {
   return (
     <section className="max-w-7xl mx-auto px-4 py-3">
       <div className="bg-white rounded-xl p-4 shadow-sm">
@@ -97,21 +66,23 @@ function NewsSection() {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {newsItems.map((item) => (
+          {items.map((item) => (
             <Link
               key={item.id}
-              href={`/tin-tuc/${item.id}`}
+              href={`/tin-tuc/${item.slug}`}
               className="group shine-card bg-white rounded-lg overflow-hidden border border-neutral-200 hover:shadow-md transition-all"
             >
               <div className="aspect-video bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center relative overflow-hidden">
-                <span className="text-4xl opacity-30">{item.brand === 'Apple' ? '🍎' : item.brand === 'Samsung' ? '📱' : '💻'}</span>
-                <div className="absolute top-2 left-2 px-2 py-0.5 bg-cps-red text-white text-[10px] font-bold rounded">
-                  {item.brand}
-                </div>
+                <span className="text-5xl">{item.cover_emoji}</span>
+                {item.brand && (
+                  <div className="absolute top-2 left-2 px-2 py-0.5 bg-cps-red text-white text-[10px] font-bold rounded">
+                    {item.brand}
+                  </div>
+                )}
               </div>
               <div className="p-3">
                 <p className="text-[10px] text-neutral-500 mb-1 flex items-center gap-1">
-                  <Clock className="w-3 h-3" /> {item.date}
+                  <Clock className="w-3 h-3" /> {new Date(item.published_at).toLocaleDateString('vi-VN')}
                 </p>
                 <h3 className="text-sm font-semibold text-cps-text group-hover:text-cps-red transition-colors line-clamp-2">
                   {item.title}
@@ -206,7 +177,47 @@ function Footer() {
   )
 }
 
-export default function HomePage() {
+export const revalidate = 60 // ISR: revalidate every 60s
+
+export default async function HomePage() {
+  // Fetch all data in parallel
+  const [
+    featuredProducts,
+    flashSaleProducts,
+    phoneProducts,
+    laptopProducts,
+    banners,
+    news,
+    categories,
+  ] = await Promise.all([
+    getFeaturedProducts(10),
+    getFlashSaleProducts(8),
+    getProductsByCategorySlug('dien-thoai', 5),
+    getProductsByCategorySlug('laptop', 5),
+    getBanners(),
+    getNews(3),
+    getCategories(),
+  ])
+
+  // map UI types for ProductSection
+  const productSectionMapper = (p: any) => ({
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    originalPrice: p.originalPrice,
+    rating: p.rating,
+    reviews: p.reviewCount,
+    sold: p.soldCount,
+    brand: p.brand,
+    image: p.images?.[0],
+    slug: p.slug,
+  })
+
+  const featuredMapped = featuredProducts.map(productSectionMapper)
+  const phoneMapped = phoneProducts.map(productSectionMapper)
+  const laptopMapped = laptopProducts.map(productSectionMapper)
+  const flashSaleMapped = flashSaleProducts.map(productSectionMapper)
+
   return (
     <div className="min-h-screen bg-[#f2f2f3]">
       <AnnouncementBar />
@@ -215,8 +226,8 @@ export default function HomePage() {
       <main className="max-w-7xl mx-auto px-4 py-3">
         {/* Hero: Sidebar + Banner + Right Banner */}
         <div className="flex gap-3 mb-4">
-          <SidebarMenu />
-          <HomeBanner />
+          <SidebarMenu categories={categories} />
+          <HomeBanner banners={banners} />
           <RightBanner />
         </div>
 
@@ -224,14 +235,14 @@ export default function HomePage() {
         <ServiceStrip />
 
         {/* Flash Sale */}
-        <FlashSale />
+        <FlashSale products={flashSaleMapped} />
       </main>
 
       <div className="max-w-7xl mx-auto">
         <ProductSection
           title="Sản phẩm nổi bật"
           subtitle="Được yêu thích nhất tuần qua"
-          products={featuredProducts}
+          products={featuredMapped}
           tabs={[
             { id: 'hot', label: 'Nổi bật' },
             { id: 'new', label: 'Mới nhất' },
@@ -244,7 +255,7 @@ export default function HomePage() {
         <ProductSection
           title="Điện thoại nổi bật"
           subtitle="iPhone, Samsung, Xiaomi..."
-          products={phoneProducts}
+          products={phoneMapped}
           viewAllHref="/san-pham?danh-muc=dien-thoai"
           bgColor=""
           icon={<Phone className="w-5 h-5 text-cps-red" />}
@@ -254,7 +265,7 @@ export default function HomePage() {
         <ProductSection
           title="Laptop hot"
           subtitle="Macbook, Dell, ASUS..."
-          products={laptopProducts}
+          products={laptopMapped}
           viewAllHref="/san-pham?danh-muc=laptop"
           bgColor=""
           icon={<Package className="w-5 h-5 text-cps-red" />}
@@ -263,7 +274,14 @@ export default function HomePage() {
 
         <BrandList />
         <NewsletterSection />
-        <NewsSection />
+        <NewsSection items={news.map(n => ({
+          id: n.id,
+          title: n.title,
+          slug: n.slug,
+          brand: n.brand,
+          published_at: n.published_at,
+          cover_emoji: n.cover_emoji,
+        }))} />
       </div>
 
       <Footer />
