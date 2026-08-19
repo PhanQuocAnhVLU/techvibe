@@ -5,15 +5,16 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #CA1F28;
-  --color-primary-hover: #A31820;
+  --color-primary: #e30019;
+  --color-primary-hover: #b8001c;
+  --color-primary-light: #f26522;
   --color-secondary: #1A1A1A;
   --color-accent: #FFD600;
-  --color-background: #F5F5F5;
+  --color-background: #f2f2f3;
   --color-surface: #FFFFFF;
-  --color-text: #1A1A1A;
+  --color-text: #363636;
   --color-text-secondary: #666666;
-  --color-border: #E0E0E0;
+  --color-border: #e5e7eb;
 }
 
 * {
@@ -31,6 +32,54 @@ body {
   background-color: var(--color-background);
   color: var(--color-text);
   line-height: 1.6;
+}
+
+/* CellphoneS shine effect on hover */
+.shine-card {
+  position: relative;
+  overflow: hidden;
+}
+.shine-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
+  z-index: 10;
+}
+.shine-card:hover::before {
+  animation: shine-card 0.8s ease-out;
+}
+@keyframes shine-card {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(300%) skewX(-15deg); }
+}
+
+/* Marquee infinite scroll */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s ease-in-out infinite;
 }
 
 @layer components {

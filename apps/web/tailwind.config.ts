@@ -9,9 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // CellphoneS clone design system
+        cps: {
+          red: '#e30019',
+          'red-hover': '#b8001c',
+          'red-light': '#f26522',
+          bg: '#f2f2f3',
+          text: '#363636',
+          border: '#e5e7eb',
+        },
         primary: {
-          DEFAULT: '#CA1F28',
-          hover: '#A31820',
+          DEFAULT: '#e30019',
+          hover: '#b8001c',
           50: '#FEF2F2',
           100: '#FEE2E2',
         },
@@ -36,6 +45,30 @@ const config: Config = {
         'sm': '4px',
         'md': '8px',
         'lg': '12px',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        shine: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+        'shine-card': {
+          '0%': { transform: 'translateX(-100%) skewX(-12deg)' },
+          '100%': { transform: 'translateX(300%) skewX(-12deg)' },
+        },
+        skeleton: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+      },
+      animation: {
+        marquee: 'marquee 30s linear infinite',
+        shine: 'shine 2s linear infinite',
+        'shine-card': 'shine-card 1s ease-out',
+        skeleton: 'skeleton 1.5s ease-in-out infinite',
       },
     },
   },
