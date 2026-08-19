@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ProductMockup } from '@/components/product-mockup'
+import { SmartImage } from '@/components/smart-image'
 
 // Sample product data
 const product = {
@@ -132,11 +133,15 @@ export default function ProductDetailPage() {
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center gap-2 text-sm">
-            <Link href="/" className="text-gray-500 hover:text-[#ca3838]">Trang chủ</Link>
-            <ChevronRight className="w-4 h-4 text-gray-400" />
-            <Link href="/san-pham" className="text-gray-500 hover:text-[#ca3838]">Điện thoại</Link>
-            <ChevronRight className="w-4 h-4 text-gray-400" />
-            <span className="text-[#363636]">{product.name}</span>
+            <Link href="/" className="text-gray-500 hover:text-[#ca3838] flex items-center gap-1 group">
+              <span className="group-hover:underline">Trang chủ</span>
+            </Link>
+            <ChevronRight className="w-4 h-4 text-gray-300" />
+            <Link href="/san-pham" className="text-gray-500 hover:text-[#ca3838]">
+              <span className="hover:underline">Sản phẩm</span>
+            </Link>
+            <ChevronRight className="w-4 h-4 text-gray-300" />
+            <span className="text-[#363636] font-medium truncate">{product.name}</span>
           </div>
         </div>
       </div>
@@ -145,32 +150,32 @@ export default function ProductDetailPage() {
       <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Left - Images - Style TGDĐ */}
-          <div className="space-y-4">
+          <div className="space-y-4 animate-slide-in-left">
             {/* Main Image */}
-            <div 
-              className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden group cursor-zoom-in"
+            <div
+              className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden group cursor-zoom-in shadow-md hover:shadow-2xl transition-shadow"
               onClick={() => setLightboxOpen(true)}
             >
-              <div className="absolute inset-0 flex items-center justify-center zoom-img">
-                <ProductMockup name={product.name} brand={product.brand} className="p-8" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <SmartImage name={product.name} brand={product.brand} aspectRatio="square" className="w-full h-full" />
               </div>
               {discount > 0 && (
-                <span className="absolute top-4 left-4 px-3 py-1.5 text-sm font-semibold bg-[#ca3838] text-white rounded-lg animate-pulse">
+                <span className="absolute top-4 left-4 px-3 py-1.5 text-sm font-bold bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-full shadow-lg">
                   -{discount}%
                 </span>
               )}
               <div className="absolute bottom-4 left-4 flex gap-2">
-                <button className="p-2 bg-white/90 rounded-full hover:bg-white shadow hover:scale-110 transition-transform">
+                <button className="p-2.5 bg-white/95 backdrop-blur rounded-full hover:bg-white shadow-lg hover:scale-110 transition-transform">
                   <Heart className="w-5 h-5 text-gray-400 hover:text-red-500" />
                 </button>
-                <button className="p-2 bg-white/90 rounded-full hover:bg-white shadow hover:scale-110 transition-transform">
+                <button className="p-2.5 bg-white/95 backdrop-blur rounded-full hover:bg-white shadow-lg hover:scale-110 transition-transform">
                   <Share2 className="w-5 h-5 text-gray-400" />
                 </button>
               </div>
-              <button className="absolute top-4 right-4 p-2 bg-white/90 rounded-full opacity-0 group-hover:opacity-100 hover:bg-white shadow hover:scale-110 transition-all">
+              <button className="absolute top-4 right-4 p-2.5 bg-white/95 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 hover:bg-white shadow-lg hover:scale-110 transition-all">
                 <ZoomIn className="w-5 h-5 text-gray-700" />
               </button>
-              <div className="absolute bottom-4 right-4 flex items-center gap-1 px-2 py-1 bg-white/90 rounded-full text-xs">
+              <div className="absolute bottom-4 right-4 flex items-center gap-1 px-3 py-1.5 bg-white/95 backdrop-blur rounded-full text-xs font-medium shadow">
                 <Camera className="w-3 h-3" />
                 <span>{selectedImage + 1} / {product.images.length}</span>
               </div>
@@ -182,11 +187,11 @@ export default function ProductDetailPage() {
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)}
-                  className={`shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all hover:scale-105 ${
-                    selectedImage === idx ? 'border-[#ca3838] shadow-md' : 'border-transparent hover:border-gray-300 bg-gray-50'
+                  className={`shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all hover:scale-105 bg-white ${
+                    selectedImage === idx ? 'border-[#ca3838] shadow-lg ring-2 ring-[#ca3838]/20' : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
-                  <ProductMockup name={product.name} brand={product.brand} className="p-2" />
+                  <SmartImage name={product.name} brand={product.brand} aspectRatio="square" className="w-full h-full" />
                 </button>
               ))}
             </div>
@@ -196,34 +201,36 @@ export default function ProductDetailPage() {
           <div className="space-y-4">
             {/* Title & Rating */}
             <div>
-              <span className="text-sm text-gray-500">{product.brand}</span>
-              <h1 className="text-xl font-bold text-[#363636] mt-1">{product.name}</h1>
-              <div className="flex items-center gap-4 mt-2">
+              <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#ca3838] bg-red-50 rounded-full">{product.brand}</span>
+              <h1 className="text-2xl font-bold text-[#363636] mt-2 leading-tight">{product.name}</h1>
+              <div className="flex items-center gap-4 mt-3 flex-wrap">
                 <div className="flex items-center gap-1">
                   {[1,2,3,4,5].map(i => (
                     <Star key={i} className={`w-4 h-4 ${i <= product.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} />
                   ))}
                 </div>
-                <span className="font-medium text-sm">{product.rating}</span>
+                <span className="font-bold text-sm">{product.rating}</span>
                 <span className="text-gray-400 text-sm">({product.reviews} đánh giá)</span>
-                <span className="text-[#ca3838] text-sm">|</span>
-                <span className="text-green-600 text-sm">✓ Còn hàng</span>
+                <span className="text-gray-300">|</span>
+                <span className="text-green-600 text-sm font-medium flex items-center gap-1">
+                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" /> Còn hàng
+                </span>
               </div>
             </div>
 
             {/* Price Box - Style TGDĐ */}
-            <div className="bg-[#fef6f6] rounded-lg p-4">
-              <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-bold text-[#ca3838]">{formatPrice(currentPrice)}</span>
+            <div className="bg-gradient-to-br from-[#fef6f6] to-orange-50 rounded-2xl p-5 border border-red-100">
+              <div className="flex items-baseline gap-3 flex-wrap">
+                <span className="text-4xl font-black bg-gradient-to-r from-[#ca3838] to-orange-500 bg-clip-text text-transparent">{formatPrice(currentPrice)}</span>
                 {product.originalPrice > currentPrice && (
                   <>
                     <span className="text-lg text-gray-400 line-through">{formatPrice(product.originalPrice)}</span>
-                    <span className="text-sm font-medium text-[#ca3838]">-{discount}%</span>
+                    <span className="px-2 py-0.5 text-sm font-bold bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-full">-{discount}%</span>
                   </>
                 )}
               </div>
               <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
-                <span>Giá đã bao gồm VAT</span>
+                <span>✓ Giá đã bao gồm VAT</span>
               </div>
               <div className="mt-3 p-3 bg-[#fff8e6] rounded-md">
                 <p className="text-sm text-[#b8860b]">
@@ -434,12 +441,12 @@ export default function ProductDetailPage() {
           <h2 className="text-lg font-bold text-[#363636] mb-4">Phụ kiện đi kèm</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {product.accessories.map(item => (
-              <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-lg p-4 text-center hover:shadow-xl transition-all hover:-translate-y-1 border border-gray-100 shine">
-                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mb-3 overflow-hidden zoom-img">
-                  <ProductMockup name={item.name} brand={product.brand} className="p-2" />
+              <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-xl p-4 text-center hover:shadow-2xl transition-all hover:-translate-y-1 border border-gray-100 hover:border-[#ca3838]/30 group">
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mb-3 overflow-hidden">
+                  <SmartImage name={item.name} brand={product.brand} aspectRatio="square" className="w-full" />
                 </div>
-                <p className="font-medium text-sm text-[#363636]">{item.name}</p>
-                <p className="text-[#ca3838] font-semibold mt-1">{formatPrice(item.price)}</p>
+                <p className="font-medium text-sm text-[#363636] group-hover:text-[#ca3838] transition-colors line-clamp-2">{item.name}</p>
+                <p className="text-[#ca3838] font-bold mt-1">{formatPrice(item.price)}</p>
               </Link>
             ))}
           </div>
@@ -447,15 +454,19 @@ export default function ProductDetailPage() {
 
         {/* Similar Products */}
         <div className="mt-10">
-          <h2 className="text-lg font-bold text-[#363636] mb-4">Sản phẩm tương tự</h2>
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-1 h-7 bg-gradient-to-b from-[#ca3838] to-orange-500 rounded-full" />
+            <h2 className="text-xl font-bold text-[#363636]">Sản phẩm tương tự</h2>
+            <span className="text-xs text-gray-500 ml-2">Có thể bạn sẽ thích</span>
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
             {product.similarProducts.map(item => (
-              <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-lg p-3 hover:shadow-xl transition-all hover:-translate-y-1 border border-gray-100 group shine">
-                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mb-3 overflow-hidden zoom-img">
-                  <ProductMockup name={item.name} brand={product.brand} className="p-2" />
+              <Link key={item.id} href={`/san-pham/${item.id}`} className="bg-white rounded-xl p-3 hover:shadow-2xl transition-all hover:-translate-y-1 border border-gray-100 hover:border-[#ca3838]/30 group">
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg mb-3 overflow-hidden">
+                  <SmartImage name={item.name} brand={product.brand} aspectRatio="square" className="w-full" />
                 </div>
-                <p className="font-medium text-sm text-[#363636] line-clamp-2 group-hover:text-[#ca3838] transition-colors">{item.name}</p>
-                <p className="text-[#ca3838] font-semibold mt-2">{formatPrice(item.price)}</p>
+                <p className="font-medium text-sm text-[#363636] line-clamp-2 group-hover:text-[#ca3838] transition-colors min-h-[40px]">{item.name}</p>
+                <p className="bg-gradient-to-r from-[#ca3838] to-orange-500 bg-clip-text text-transparent font-bold mt-2">{formatPrice(item.price)}</p>
               </Link>
             ))}
           </div>
@@ -482,7 +493,7 @@ export default function ProductDetailPage() {
           </button>
           <div className="max-w-3xl w-full" onClick={e => e.stopPropagation()}>
             <div className="bg-white rounded-2xl p-12 flex items-center justify-center">
-              <ProductMockup name={product.name} brand={product.brand} className="max-h-[70vh]" />
+              <SmartImage name={product.name} brand={product.brand} aspectRatio="square" className="max-h-[70vh]" />
             </div>
             <div className="flex justify-center gap-2 mt-4">
               {product.images.map((_, idx) => (

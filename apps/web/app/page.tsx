@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -9,14 +9,15 @@ import { Search, ShoppingCart, User, Menu, X, ChevronRight,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useApp } from '@/lib/app-context'
-import { HeroMockup, ProductMockup, NewsMockup } from '@/components/product-mockup'
+import { HeroMockup, NewsMockup } from '@/components/product-mockup'
+import { SmartImage, RealImage } from '@/components/smart-image'
 
 const banners = [
-  { id: 1, title: 'iPhone 15 Pro Max', subtitle: 'Siêu phẩm chính hãng Apple', bg: 'from-gray-900 via-gray-800 to-gray-700', name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', accent: '#5e9eff' },
-  { id: 2, title: 'Samsung Galaxy S24', subtitle: 'Flagship Android đỉnh cao', bg: 'from-blue-600 to-blue-800', name: 'Samsung Galaxy S24 Ultra', brand: 'Samsung', accent: '#fbbf24' },
-  { id: 3, title: 'MacBook Air M3', subtitle: 'Mỏng nhẹ - Mạnh mẽ', bg: 'from-gray-600 to-gray-800', name: 'MacBook Pro 14 M3', brand: 'Apple', accent: '#5e9eff' },
-  { id: 4, title: 'Flash Sale 8.8', subtitle: 'Giảm đến 50%', bg: 'from-red-500 to-orange-500', name: 'iPhone 15 Pro Max', brand: 'Apple', accent: '#fbbf24' },
-  { id: 5, title: 'Xiaomi 14 Pro', subtitle: 'Camera Leica đỉnh cao', bg: 'from-orange-500 to-red-500', name: 'Xiaomi 14 Pro', brand: 'Xiaomi', accent: '#ffffff' },
+  { id: 1, title: 'iPhone 15 Pro Max', subtitle: 'Siêu phẩm chính hãng Apple', bg: 'from-slate-900 via-slate-800 to-slate-700', name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', price: '27.990.000đ', originalPrice: '34.990.000đ' },
+  { id: 2, title: 'Samsung Galaxy S24', subtitle: 'Flagship Android đỉnh cao', bg: 'from-blue-700 via-blue-600 to-indigo-700', name: 'Samsung Galaxy S24 Ultra', brand: 'Samsung', price: '23.990.000đ', originalPrice: '31.990.000đ' },
+  { id: 3, title: 'MacBook Air M3', subtitle: 'Mỏng nhẹ - Mạnh mẽ', bg: 'from-gray-800 via-gray-700 to-gray-900', name: 'MacBook Air M3', brand: 'Apple', price: '32.990.000đ', originalPrice: '39.990.000đ' },
+  { id: 4, title: 'Flash Sale 8.8', subtitle: 'Giảm đến 50%', bg: 'from-red-600 via-rose-600 to-orange-600', name: 'iPhone 15 Pro Max 256GB', brand: 'Apple', price: 'Từ 4.990.000đ' },
+  { id: 5, title: 'Xiaomi 14 Pro', subtitle: 'Camera Leica đỉnh cao', bg: 'from-orange-600 via-amber-600 to-yellow-600', name: 'Xiaomi 14 Pro', brand: 'Xiaomi', price: '14.990.000đ', originalPrice: '21.990.000đ' },
 ]
 
 const sidebarBanners = [
@@ -189,24 +190,23 @@ export default function HomePage() {
       <header className="bg-white sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2 shrink-0">
-              <div className="w-11 h-11 bg-[#ca3838] rounded-lg flex items-center justify-center">
-                <span className="font-bold text-white text-2xl">T</span>
+            <Link href="/" className="flex items-center gap-2 shrink-0 group">
+              <div className="w-11 h-11 bg-gradient-to-br from-[#ca3838] to-orange-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <span className="font-black text-white text-2xl">T</span>
               </div>
               <div className="hidden sm:block">
-                <span className="font-bold text-2xl text-[#363636]">Tech</span>
-                <span className="font-bold text-2xl text-[#ca3838]">Store</span>
+                <span className="font-black text-2xl bg-gradient-to-r from-[#363636] to-[#ca3838] bg-clip-text text-transparent">TechStore</span>
               </div>
             </Link>
 
             <div className="flex-1 max-w-2xl">
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="w-full flex items-center px-4 py-2.5 border-2 border-[#ca3838] rounded-md hover:bg-[#fef6f6] transition-colors text-left"
+                className="w-full flex items-center px-4 py-2.5 bg-gradient-to-r from-[#fef6f6] to-orange-50 border-2 border-[#ca3838] rounded-full hover:shadow-md transition-all text-left group"
               >
-                <Search className="w-5 h-5 text-[#ca3838] mr-3" />
-                <span className="text-gray-400 flex-1">Bạn tìm gì hôm nay? (iPhone, Samsung, Laptop...)</span>
-                <kbd className="hidden md:inline-block bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded">Ctrl+K</kbd>
+                <Search className="w-5 h-5 text-[#ca3838] mr-3 group-hover:scale-110 transition-transform" />
+                <span className="text-gray-400 flex-1 text-sm">Bạn tìm gì hôm nay? (iPhone, Samsung, Laptop...)</span>
+                <kbd className="hidden md:inline-block bg-white text-gray-500 text-xs px-2 py-0.5 rounded border shadow-sm">Ctrl+K</kbd>
               </button>
             </div>
 
@@ -261,7 +261,7 @@ export default function HomePage() {
         </div>
 
         {/* Category Nav */}
-        <div className="bg-[#363636] hidden md:block">
+        <div className="bg-gradient-to-r from-[#363636] to-[#4a4a4a] hidden md:block shadow-md">
           <div className="max-w-7xl mx-auto px-4">
             <ul className="flex items-center">
               {categories.map((cat, idx) => (
@@ -346,26 +346,43 @@ export default function HomePage() {
                     className={`w-full h-full shrink-0 bg-gradient-to-r ${banner.bg} flex items-center px-8 sm:px-16 relative overflow-hidden`}
                   >
                     {/* Animated background shapes */}
-                    <div className="absolute top-10 right-20 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse" />
-                    <div className="absolute bottom-10 left-20 w-24 h-24 bg-yellow-400/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
-                    
-                    <div className="flex-1 relative z-10">
-                      <span className="inline-flex items-center gap-1 bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded mb-3 animate-bounce">
-                        <Zap className="w-3 h-3" /> HOT
+                    <div className="absolute -top-20 -right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse" />
+                    <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-yellow-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+
+                    {/* Grid pattern overlay */}
+                    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+
+                    <div className="flex-1 relative z-10 max-w-md">
+                      <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold px-3 py-1.5 rounded-full mb-4 shadow-lg">
+                        <Zap className="w-3.5 h-3.5 fill-black" /> HOT DEAL
                       </span>
-                      <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 animate-fade-in">{banner.title}</h2>
-                      <p className="text-lg sm:text-xl text-white/90 mb-4">{banner.subtitle}</p>
+                      <h2 className="text-3xl sm:text-5xl font-black text-white mb-3 leading-tight drop-shadow-2xl">{banner.title}</h2>
+                      <p className="text-base sm:text-lg text-white/90 mb-5 max-w-xs">{banner.subtitle}</p>
+                      <div className="flex items-center gap-3 mb-5">
+                        <div className="bg-white/15 backdrop-blur-md px-3 py-2 rounded-lg border border-white/20">
+                          <p className="text-[10px] text-white/70 uppercase tracking-wider">Giá từ</p>
+                          <p className="text-lg font-black text-yellow-300">{banner.price || '9.990.000đ'}</p>
+                        </div>
+                        {banner.originalPrice && (
+                          <div className="text-white/60 text-sm line-through">{banner.originalPrice}</div>
+                        )}
+                      </div>
                       <Link href="/san-pham">
-                        <button className="group bg-white text-[#363636] px-6 py-2.5 rounded-md font-semibold hover:bg-gray-100 transition-all flex items-center gap-2 hover:scale-105 hover:shadow-xl">
+                        <button className="group bg-white text-[#363636] px-7 py-3 rounded-full font-bold hover:bg-gray-100 transition-all flex items-center gap-2 hover:scale-105 hover:shadow-2xl shadow-xl">
                           Mua ngay
                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </button>
                       </Link>
                     </div>
-                    <div className="hidden sm:block w-80 h-56 relative">
-                      <div className="absolute inset-0 bg-white/10 rounded-2xl blur-xl animate-pulse" />
+                    <div className="hidden sm:block w-96 h-72 relative">
+                      <div className="absolute inset-0 bg-white/20 rounded-3xl blur-2xl" />
                       <div className="relative animate-float h-full">
-                        <HeroMockup title={banner.title} subtitle={banner.subtitle} brand={banner.brand || 'Apple'} accent={banner.accent || '#5e9eff'} />
+                        <SmartImage
+                          name={banner.name}
+                          brand={banner.brand}
+                          aspectRatio="wide"
+                          className="bg-transparent"
+                        />
                       </div>
                     </div>
                   </div>
@@ -410,18 +427,20 @@ export default function HomePage() {
 
       {/* Service Strip */}
       <section className="bg-white border-y">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="max-w-7xl mx-auto px-4 py-5">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: Truck, title: 'Miễn phí vận chuyển', desc: 'Đơn từ 500.000đ', color: 'text-blue-600' },
-              { icon: Package, title: 'Giao nhanh 2h', desc: 'Nội thành HCM, HN', color: 'text-orange-600' },
-              { icon: ShieldCheck, title: 'Bảo hành chính hãng', desc: '12-24 tháng', color: 'text-green-600' },
-              { icon: RotateCcw, title: 'Đổi trả 30 ngày', desc: 'Không hỏi lý do', color: 'text-purple-600' },
+              { icon: Truck, title: 'Miễn phí vận chuyển', desc: 'Đơn từ 500.000đ', color: 'from-blue-500 to-cyan-500', bg: 'bg-blue-50' },
+              { icon: Package, title: 'Giao nhanh 2h', desc: 'Nội thành HCM, HN', color: 'from-orange-500 to-red-500', bg: 'bg-orange-50' },
+              { icon: ShieldCheck, title: 'Bảo hành chính hãng', desc: '12-24 tháng', color: 'from-green-500 to-emerald-500', bg: 'bg-green-50' },
+              { icon: RotateCcw, title: 'Đổi trả 30 ngày', desc: 'Không hỏi lý do', color: 'from-purple-500 to-pink-500', bg: 'bg-purple-50' },
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center gap-3">
-                <item.icon className={`w-8 h-8 ${item.color}`} />
+              <div key={idx} className="group flex items-center gap-3 p-3 rounded-xl hover:shadow-md transition-all cursor-pointer">
+                <div className={`w-12 h-12 rounded-xl ${item.bg} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                  <item.icon className={`w-6 h-6 bg-gradient-to-br ${item.color} bg-clip-text text-transparent`} style={{ WebkitTextFillColor: 'transparent' }} />
+                </div>
                 <div>
-                  <p className="font-semibold text-sm text-[#363636]">{item.title}</p>
+                  <p className="font-bold text-sm text-[#363636]">{item.title}</p>
                   <p className="text-xs text-gray-500">{item.desc}</p>
                 </div>
               </div>
@@ -465,7 +484,7 @@ export default function HomePage() {
                   >
                     <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
                       <div className="zoom-img p-2">
-                        <ProductMockup name={product.name} brand={product.brand} />
+                        <SmartImage name={product.name} brand={product.brand} />
                       </div>
                       <span className="absolute top-1 left-1 px-1.5 py-0.5 bg-[#ca3838] text-white text-[10px] font-bold rounded animate-pulse">
                         -{discount}%
@@ -481,9 +500,9 @@ export default function HomePage() {
                       <p className="text-xs font-medium text-[#363636] line-clamp-2 min-h-[32px]">{product.name}</p>
                       <p className="text-sm font-bold text-[#ca3838] mt-1">{formatPrice(product.price)}</p>
                       <div className="mt-1">
-                        <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-gradient-to-r from-[#ca3838] to-orange-500"
+                        <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-r from-[#ca3838] via-orange-500 to-yellow-500 rounded-full"
                             style={{ width: `${soldPercent}%` }}
                           />
                         </div>
@@ -491,9 +510,9 @@ export default function HomePage() {
                       </div>
                       <button
                         onClick={(e) => { e.preventDefault(); addToCart(product) }}
-                        className="w-full mt-2 bg-[#ca3838] text-white text-[10px] py-1 rounded hover:bg-[#b32f2f]"
+                        className="w-full mt-2 bg-gradient-to-r from-[#ca3838] to-orange-500 text-white text-[10px] py-1.5 rounded-md font-semibold hover:shadow-lg transition-all"
                       >
-                        Thêm vào giỏ
+                        ⚡ Thêm vào giỏ
                       </button>
                     </div>
                   </Link>
@@ -507,15 +526,18 @@ export default function HomePage() {
       {/* Categories Block */}
       <section className="max-w-7xl mx-auto px-4 py-6">
         <div className="bg-white rounded-lg p-4">
-          <h2 className="text-lg font-bold text-[#363636] mb-4">Khám phá theo danh mục</h2>
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-1 h-6 bg-gradient-to-b from-[#ca3838] to-orange-500 rounded-full" />
+            <h2 className="text-lg font-bold text-[#363636]">Khám phá theo danh mục</h2>
+          </div>
           <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
             {categories.map((cat) => (
               <Link
                 key={cat.id}
                 href={`/san-pham?danh-muc=${cat.slug}`}
-                className="flex flex-col items-center p-4 rounded-lg hover:bg-[#fef6f6] transition-colors"
+                className="group flex flex-col items-center p-4 rounded-xl hover:bg-gradient-to-br hover:from-[#fef6f6] hover:to-orange-50 transition-all hover:scale-105 hover:shadow-md"
               >
-                <span className="text-3xl mb-2">{cat.icon}</span>
+                <span className="text-4xl mb-2 group-hover:scale-110 transition-transform">{cat.icon}</span>
                 <span className="text-xs text-[#363636] text-center font-medium">{cat.name}</span>
               </Link>
             ))}
@@ -530,6 +552,7 @@ export default function HomePage() {
         products={featuredProducts}
         viewAllHref="/san-pham"
         onProductClick={addToRecentlyViewed}
+        icon={<Award className="w-5 h-5 text-[#ca3838]" />}
       />
 
       {/* Phone Section */}
@@ -540,6 +563,7 @@ export default function HomePage() {
         viewAllHref="/san-pham?danh-muc=dien-thoai"
         bgColor="bg-gradient-to-r from-blue-50 to-white"
         onProductClick={addToRecentlyViewed}
+        icon={<Phone className="w-5 h-5 text-blue-600" />}
       />
 
       {/* Laptop Section */}
@@ -550,18 +574,23 @@ export default function HomePage() {
         viewAllHref="/san-pham?danh-muc=laptop"
         bgColor="bg-gradient-to-r from-purple-50 to-white"
         onProductClick={addToRecentlyViewed}
+        icon={<Package className="w-5 h-5 text-purple-600" />}
       />
 
       {/* Brands */}
       <section className="max-w-7xl mx-auto px-4 pb-4">
         <div className="bg-white rounded-lg p-4">
-          <h2 className="text-lg font-bold text-[#363636] mb-4">Thương hiệu</h2>
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-1 h-6 bg-gradient-to-b from-[#ca3838] to-orange-500 rounded-full" />
+            <h2 className="text-lg font-bold text-[#363636]">Thương hiệu</h2>
+            <span className="text-xs text-gray-500 ml-2">12+ thương hiệu chính hãng</span>
+          </div>
           <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-12 gap-2">
             {brands.map((brand, idx) => (
               <Link
                 key={idx}
                 href={`/san-pham?thuong-hieu=${brand.toLowerCase()}`}
-                className="group relative overflow-hidden border border-gray-200 rounded-lg p-3 flex flex-col items-center justify-center hover:border-[#ca3838] hover:shadow-lg transition-all hover:-translate-y-1"
+                className="group relative overflow-hidden border border-gray-200 rounded-lg p-3 flex flex-col items-center justify-center hover:border-[#ca3838] hover:shadow-lg transition-all hover:-translate-y-1 bg-gradient-to-br from-white to-gray-50 hover:from-red-50 hover:to-orange-50"
               >
                 <span className="font-bold text-sm text-[#363636] group-hover:text-[#ca3838] transition-colors">{brand}</span>
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
@@ -602,10 +631,19 @@ export default function HomePage() {
 
       {/* News */}
       <section className="max-w-7xl mx-auto px-4 py-4">
-        <div className="bg-white rounded-lg p-4">
+        <div className="bg-white rounded-xl p-4 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-[#363636]">Tin công nghệ</h2>
-            <Link href="/tin-tuc" className="text-[#ca3838] hover:underline flex items-center gap-1 text-sm">
+            <div className="flex items-center gap-3">
+              <div className="w-1 h-7 bg-gradient-to-b from-[#ca3838] to-orange-500 rounded-full" />
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500/10 to-purple-500/10 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-blue-600" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-[#363636]">Tin công nghệ</h2>
+                <p className="text-xs text-gray-500">Cập nhật hàng ngày</p>
+              </div>
+            </div>
+            <Link href="/tin-tuc" className="text-[#ca3838] hover:underline flex items-center gap-1 text-sm font-medium">
               Xem tất cả
               <ChevronRight className="w-4 h-4" />
             </Link>
@@ -613,11 +651,13 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {news.map((item) => (
               <Link key={item.id} href={`/tin-tuc/${item.id}`} className="group">
-                <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden mb-2">
+                <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden mb-3 group-hover:shadow-lg transition-all">
                   <NewsMockup title={item.title} brand={item.brand} />
                 </div>
-                <p className="text-xs text-gray-500 mb-1">{item.date}</p>
-                <h3 className="font-medium text-[#363636] group-hover:text-[#ca3838] transition-colors line-clamp-2">{item.title}</h3>
+                <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
+                  <Clock className="w-3 h-3" /> {item.date}
+                </p>
+                <h3 className="font-semibold text-[#363636] group-hover:text-[#ca3838] transition-colors line-clamp-2">{item.title}</h3>
               </Link>
             ))}
           </div>
@@ -704,26 +744,32 @@ export default function HomePage() {
 }
 
 // Reusable Product Section
-function ProductSection({ title, subtitle, products, viewAllHref, bgColor = '', onProductClick }: any) {
+function ProductSection({ title, subtitle, products, viewAllHref, bgColor = '', onProductClick, icon }: any) {
   const { setQuickViewProduct, toggleWishlist, wishlist, toggleCompare, compareList } = useApp()
-  
+
   const isInWishlist = (id: number) => wishlist.some(p => p.id === id)
   const isInCompare = (id: number) => compareList.some(p => p.id === id)
 
   return (
     <section className={`max-w-7xl mx-auto px-4 pb-4 ${bgColor}`}>
-      <div className="bg-white rounded-lg overflow-hidden">
-        <div className="flex items-center justify-between p-4 border-b">
-          <div>
-            <h2 className="text-lg font-bold text-[#363636]">{title}</h2>
-            <p className="text-xs text-gray-500">{subtitle}</p>
+      <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+        <div className="flex items-center justify-between p-4 border-b border-gray-100">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-7 bg-gradient-to-b from-[#ca3838] to-orange-500 rounded-full" />
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#ca3838]/10 to-orange-500/10 flex items-center justify-center">
+              {icon || <Sparkles className="w-5 h-5 text-[#ca3838]" />}
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-[#363636]">{title}</h2>
+              <p className="text-xs text-gray-500">{subtitle}</p>
+            </div>
           </div>
-          <Link href={viewAllHref} className="text-[#ca3838] hover:underline flex items-center gap-1 text-sm">
+          <Link href={viewAllHref} className="text-[#ca3838] hover:underline flex items-center gap-1 text-sm font-medium">
             Xem tất cả
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
-        
+
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 p-3">
           {products.map((product: any) => {
             const discount = product.originalPrice > product.price
@@ -733,31 +779,31 @@ function ProductSection({ title, subtitle, products, viewAllHref, bgColor = '', 
             return (
               <div
                 key={product.id}
-                className="border border-gray-100 rounded-lg overflow-hidden hover:shadow-lg transition-shadow group relative"
+                className="border border-gray-100 rounded-xl overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1 hover:border-[#ca3838]/30 group relative bg-white"
               >
                 <Link href={`/san-pham/${product.id}`} onClick={() => onProductClick?.(product)}>
-                  <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden group">
-                    <div className="zoom-img p-2">
-                      <ProductMockup name={product.name} brand={product.brand} />
+                  <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                    <div className="zoom-img aspect-square flex items-center justify-center p-2">
+                      <SmartImage name={product.name} brand={product.brand} />
                     </div>
                     {product.badge && (
-                      <span className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-bold rounded shadow ${
-                        product.badge === 'Hot' || product.badge === 'Giảm 2TR' ? 'bg-[#ca3838] text-white' :
-                        product.badge === 'Mới' || product.badge === 'New' ? 'bg-[#2563eb] text-white' :
-                        product.badge === 'Bán chạy' ? 'bg-[#16a34a] text-white' :
-                        'bg-[#f97316] text-white'
+                      <span className={`absolute top-2 left-2 px-2 py-0.5 text-[10px] font-bold rounded-full shadow-md ${
+                        product.badge === 'Hot' || product.badge === 'Giảm 2TR' ? 'bg-gradient-to-r from-red-600 to-orange-500 text-white' :
+                        product.badge === 'Mới' || product.badge === 'New' ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white' :
+                        product.badge === 'Bán chạy' ? 'bg-gradient-to-r from-green-600 to-emerald-500 text-white' :
+                        'bg-gradient-to-r from-orange-500 to-yellow-500 text-white'
                       }`}>
                         {product.badge}
                       </span>
                     )}
                     {discount > 0 && (
-                      <span className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-bold bg-[#ca3838] text-white rounded shadow">
+                      <span className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-red-600 to-pink-500 text-white rounded-full shadow-md">
                         -{discount}%
                       </span>
                     )}
                   </div>
                   <div className="p-3">
-                    <p className="text-xs text-gray-500 mb-1">{product.brand}</p>
+                    <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1 font-semibold">{product.brand}</p>
                     <h3 className="text-sm font-medium text-[#363636] line-clamp-2 group-hover:text-[#ca3838] transition-colors min-h-[40px]">
                       {product.name}
                     </h3>
@@ -767,7 +813,7 @@ function ProductSection({ title, subtitle, products, viewAllHref, bgColor = '', 
                       <span className="text-xs text-gray-400">({product.reviews})</span>
                     </div>
                     <div className="mt-2">
-                      <span className="text-base font-bold text-[#ca3838]">{formatPrice(product.price)}</span>
+                      <span className="text-base font-bold bg-gradient-to-r from-[#ca3838] to-orange-500 bg-clip-text text-transparent">{formatPrice(product.price)}</span>
                       {discount > 0 && (
                         <span className="text-xs text-gray-400 line-through ml-1">{formatPrice(product.originalPrice)}</span>
                       )}
@@ -775,24 +821,24 @@ function ProductSection({ title, subtitle, products, viewAllHref, bgColor = '', 
                   </div>
                 </Link>
                 {/* Hover Actions */}
-                <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-10" style={{ marginTop: discount > 0 ? '28px' : '0' }}>
+                <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-all z-10 translate-x-2 group-hover:translate-x-0" style={{ marginTop: discount > 0 ? '28px' : '0' }}>
                   <button
                     onClick={(e) => { e.preventDefault(); toggleWishlist(product) }}
-                    className={`p-1.5 rounded-full shadow ${isInWishlist(product.id) ? 'bg-red-50' : 'bg-white'} hover:scale-110 transition-transform`}
+                    className={`p-1.5 rounded-full shadow-lg ${isInWishlist(product.id) ? 'bg-red-50' : 'bg-white'} hover:scale-110 transition-transform`}
                     title="Yêu thích"
                   >
                     <Heart className={`w-4 h-4 ${isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
                   </button>
                   <button
                     onClick={(e) => { e.preventDefault(); setQuickViewProduct(product) }}
-                    className="p-1.5 bg-white rounded-full shadow hover:scale-110 transition-transform"
+                    className="p-1.5 bg-white rounded-full shadow-lg hover:scale-110 transition-transform"
                     title="Xem nhanh"
                   >
                     <Eye className="w-4 h-4 text-gray-400" />
                   </button>
                   <button
                     onClick={(e) => { e.preventDefault(); toggleCompare(product) }}
-                    className={`p-1.5 rounded-full shadow ${isInCompare(product.id) ? 'bg-blue-50' : 'bg-white'} hover:scale-110 transition-transform`}
+                    className={`p-1.5 rounded-full shadow-lg ${isInCompare(product.id) ? 'bg-blue-50' : 'bg-white'} hover:scale-110 transition-transform`}
                     title="So sánh"
                   >
                     <GitCompare className={`w-4 h-4 ${isInCompare(product.id) ? 'text-blue-500' : 'text-gray-400'}`} />
