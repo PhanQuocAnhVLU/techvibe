@@ -7,7 +7,7 @@ import { ProductCard } from './product-card'
 import { useApp } from '@/lib/app-context'
 
 interface Product {
-  id: number
+  id: number | string
   name: string
   brand?: string
   price: number
@@ -17,6 +17,7 @@ interface Product {
   reviews?: number
   sold?: number
   badge?: string
+  slug?: string
 }
 
 interface ProductSectionProps {
@@ -41,10 +42,7 @@ export function ProductSection({
   columns = 5,
 }: ProductSectionProps) {
   const [activeTab, setActiveTab] = useState(tabs?.[0]?.id)
-  const { toggleWishlist, wishlist, toggleCompare, compareList, setQuickViewProduct } = useApp()
-
-  const isInWishlist = (id: number) => wishlist.some(p => p.id === id)
-  const isInCompare = (id: number) => compareList.some(p => p.id === id)
+  const { setQuickViewProduct } = useApp()
 
   const colClass = {
     2: 'grid-cols-2',
@@ -69,7 +67,6 @@ export function ProductSection({
             </div>
           </div>
 
-          {/* Tabs */}
           {tabs && tabs.length > 0 ? (
             <div className="hidden md:flex items-center gap-4">
               {tabs.map(tab => (
@@ -108,8 +105,7 @@ export function ProductSection({
               product={product}
               showWishlist
               showRating
-              onWishlist={toggleWishlist}
-              onQuickView={setQuickViewProduct}
+              onQuickView={setQuickViewProduct as any}
             />
           ))}
         </div>

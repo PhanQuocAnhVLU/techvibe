@@ -1,8 +1,6 @@
 ﻿import Link from 'next/link'
 import {
-  ChevronRight, Phone, Mail, MapPin, Clock,
-  Facebook, Youtube, Instagram, Send,
-  Award, Package
+  ChevronRight, Mail, MapPin, Clock, Send, Award, Package, Phone
 } from 'lucide-react'
 import { AnnouncementBar } from '@/components/cellphones/announcement-bar'
 import { Header } from '@/components/cellphones/header'
@@ -13,6 +11,13 @@ import { FlashSale } from '@/components/cellphones/flash-sale'
 import { ProductSection } from '@/components/cellphones/product-section'
 import { ServiceStrip } from '@/components/cellphones/service-strip'
 import { BrandList } from '@/components/cellphones/brand-list'
+import { Footer } from '@/components/cellphones/footer'
+import { QuickFilterBar } from '@/components/cellphones/quick-filter-bar'
+import { MobileBottomNav } from '@/components/cellphones/mobile-bottom-nav'
+import { StickyMiniCart } from '@/components/cellphones/sticky-mini-cart'
+import { CompareBar } from '@/components/cellphones/compare-bar'
+import { QuickView } from '@/components/cellphones/quick-view'
+import { AppShell } from '@/components/cellphones/app-shell'
 import {
   getFeaturedProducts,
   getFlashSaleProducts,
@@ -96,91 +101,9 @@ function NewsSection({ items }: { items: { id: number; title: string; slug: stri
   )
 }
 
-function Footer() {
-  return (
-    <footer className="bg-neutral-900 text-white mt-6">
-      <div className="max-w-7xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-10 h-10 bg-cps-red rounded-lg flex items-center justify-center">
-                <span className="font-black text-white text-xl">T</span>
-              </div>
-              <div>
-                <span className="font-bold text-lg">Tech</span>
-                <span className="font-bold text-lg text-cps-red">Vibe</span>
-              </div>
-            </div>
-            <p className="text-xs text-neutral-400 mb-3">
-              Cửa hàng công nghệ hàng đầu Việt Nam với hơn 10 năm kinh nghiệm.
-            </p>
-            <div className="flex items-center gap-2">
-              <a href="#" className="w-8 h-8 bg-neutral-800 hover:bg-cps-red rounded-full flex items-center justify-center transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-8 h-8 bg-neutral-800 hover:bg-cps-red rounded-full flex items-center justify-center transition-colors">
-                <Youtube className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-8 h-8 bg-neutral-800 hover:bg-cps-red rounded-full flex items-center justify-center transition-colors">
-                <Instagram className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-bold text-sm mb-3 text-white">Thông tin</h4>
-            <ul className="space-y-2 text-xs text-neutral-400">
-              <li><Link href="/gioi-thieu" className="hover:text-white">Giới thiệu</Link></li>
-              <li><Link href="/tin-tuc" className="hover:text-white">Tin tức</Link></li>
-              <li><Link href="/lien-he" className="hover:text-white">Liên hệ</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-bold text-sm mb-3 text-white">Hỗ trợ</h4>
-            <ul className="space-y-2 text-xs text-neutral-400">
-              <li><Link href="#" className="hover:text-white">Hướng dẫn mua hàng</Link></li>
-              <li><Link href="#" className="hover:text-white">Chính sách đổi trả</Link></li>
-              <li><Link href="#" className="hover:text-white">Chính sách bảo hành</Link></li>
-              <li><Link href="#" className="hover:text-white">FAQ</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-bold text-sm mb-3 text-white">Liên hệ</h4>
-            <ul className="space-y-2 text-xs text-neutral-400">
-              <li className="flex items-start gap-1.5">
-                <MapPin className="w-3 h-3 mt-0.5 shrink-0" />
-                <span>123 Nguyễn Trãi, P.Bến Thành, Q.1, TP.HCM</span>
-              </li>
-              <li className="flex items-center gap-1.5">
-                <Phone className="w-3 h-3 shrink-0" />
-                <span>1900.2000</span>
-              </li>
-              <li className="flex items-center gap-1.5">
-                <Mail className="w-3 h-3 shrink-0" />
-                <span>cskh@techvibe.vn</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="border-t border-neutral-800 mt-8 pt-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-neutral-500">
-          <p>© 2024 TechVibe. Tất cả quyền được bảo lưu.</p>
-          <div className="flex gap-4">
-            <Link href="#" className="hover:text-white">Chính sách bảo mật</Link>
-            <Link href="#" className="hover:text-white">Điều khoản sử dụng</Link>
-          </div>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
-export const revalidate = 60 // ISR: revalidate every 60s
+export const revalidate = 60
 
 export default async function HomePage() {
-  // Fetch all data in parallel
   const [
     featuredProducts,
     flashSaleProducts,
@@ -199,7 +122,6 @@ export default async function HomePage() {
     getCategories(),
   ])
 
-  // map UI types for ProductSection
   const productSectionMapper = (p: any) => ({
     id: p.id,
     name: p.name,
@@ -219,72 +141,74 @@ export default async function HomePage() {
   const flashSaleMapped = flashSaleProducts.map(productSectionMapper)
 
   return (
-    <div className="min-h-screen bg-[#f2f2f3]">
-      <AnnouncementBar />
-      <Header />
+    <AppShell>
+      <div className="min-h-screen bg-[#f2f2f3] pb-20 md:pb-0">
+        <AnnouncementBar />
+        <Header />
+        <QuickFilterBar />
 
-      <main className="max-w-7xl mx-auto px-4 py-3">
-        {/* Hero: Sidebar + Banner + Right Banner */}
-        <div className="flex gap-3 mb-4">
-          <SidebarMenu categories={categories} />
-          <HomeBanner banners={banners} />
-          <RightBanner />
+        <main className="max-w-7xl mx-auto px-4 py-3">
+          <div className="flex gap-3 mb-4">
+            <SidebarMenu categories={categories} />
+            <HomeBanner banners={banners} />
+            <RightBanner />
+          </div>
+
+          <ServiceStrip />
+          <FlashSale products={flashSaleMapped} />
+        </main>
+
+        <div className="max-w-7xl mx-auto">
+          <ProductSection
+            title="Sản phẩm nổi bật"
+            subtitle="Được yêu thích nhất tuần qua"
+            products={featuredMapped}
+            tabs={[
+              { id: 'hot', label: 'Nổi bật' },
+              { id: 'new', label: 'Mới nhất' },
+              { id: 'bestseller', label: 'Bán chạy' },
+            ]}
+            icon={<Award className="w-5 h-5 text-cps-red" />}
+            columns={5}
+          />
+
+          <ProductSection
+            title="Điện thoại nổi bật"
+            subtitle="iPhone, Samsung, Xiaomi..."
+            products={phoneMapped}
+            viewAllHref="/san-pham?danh-muc=dien-thoai"
+            icon={<Phone className="w-5 h-5 text-cps-red" />}
+            columns={5}
+          />
+
+          <ProductSection
+            title="Laptop hot"
+            subtitle="Macbook, Dell, ASUS..."
+            products={laptopMapped}
+            viewAllHref="/san-pham?danh-muc=laptop"
+            icon={<Package className="w-5 h-5 text-cps-red" />}
+            columns={5}
+          />
+
+          <BrandList />
+          <NewsletterSection />
+          <NewsSection items={news.map(n => ({
+            id: n.id,
+            title: n.title,
+            slug: n.slug,
+            brand: n.brand,
+            published_at: n.published_at,
+            cover_emoji: n.cover_emoji,
+          }))} />
         </div>
 
-        {/* Service Strip */}
-        <ServiceStrip />
+        <Footer />
 
-        {/* Flash Sale */}
-        <FlashSale products={flashSaleMapped} />
-      </main>
-
-      <div className="max-w-7xl mx-auto">
-        <ProductSection
-          title="Sản phẩm nổi bật"
-          subtitle="Được yêu thích nhất tuần qua"
-          products={featuredMapped}
-          tabs={[
-            { id: 'hot', label: 'Nổi bật' },
-            { id: 'new', label: 'Mới nhất' },
-            { id: 'bestseller', label: 'Bán chạy' },
-          ]}
-          icon={<Award className="w-5 h-5 text-cps-red" />}
-          columns={5}
-        />
-
-        <ProductSection
-          title="Điện thoại nổi bật"
-          subtitle="iPhone, Samsung, Xiaomi..."
-          products={phoneMapped}
-          viewAllHref="/san-pham?danh-muc=dien-thoai"
-          bgColor=""
-          icon={<Phone className="w-5 h-5 text-cps-red" />}
-          columns={5}
-        />
-
-        <ProductSection
-          title="Laptop hot"
-          subtitle="Macbook, Dell, ASUS..."
-          products={laptopMapped}
-          viewAllHref="/san-pham?danh-muc=laptop"
-          bgColor=""
-          icon={<Package className="w-5 h-5 text-cps-red" />}
-          columns={5}
-        />
-
-        <BrandList />
-        <NewsletterSection />
-        <NewsSection items={news.map(n => ({
-          id: n.id,
-          title: n.title,
-          slug: n.slug,
-          brand: n.brand,
-          published_at: n.published_at,
-          cover_emoji: n.cover_emoji,
-        }))} />
+        {/* Floating UI */}
+        <MobileBottomNav />
+        <StickyMiniCart />
+        <CompareBar />
       </div>
-
-      <Footer />
-    </div>
+    </AppShell>
   )
 }
